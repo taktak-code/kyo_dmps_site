@@ -18,20 +18,51 @@ const DetailView: React.FC<DetailViewProps> = ({ attackerId, defenderId, onBack 
     const rate = WIN_RATES[attackerId]?.[defenderId] || 50;
 
     useEffect(() => {
-        // In a real implementation, you would fetch the markdown file here.
-        // For now, we simulate loading the content.
-        const mockMarkdown = `
+        // Find deck names for matching
+        const attackerName = attacker?.name;
+        const defenderName = defender?.name;
+
+        if (!attackerName || !defenderName) return;
+
+        // Try to fetch guide from json
+        fetch('/data/guides.json')
+            .then(res => res.json())
+            .then(async (data) => {
+                const guide = data.items.find((item: any) =>
+                    item.attacker === attackerName && item.defender === defenderName
+                );
+
+                if (guide) {
+                    // Fetch real markdown
+                    try {
+                        const mdRes = await fetch(guide.path);
+                        const mdText = await mdRes.text();
+                        setInsight(mdText);
+                    } catch (e) {
+                        console.error("Failed to load guide markdown", e);
+                        setInsight("Failed to load guide content.");
+                    }
+                } else {
+                    // Fallback to mock if no guide found
+                    const mockMarkdown = `
 **<span class="flex items-center gap-2"><span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>競技調整チーム・分析ログ</span>**
 
-- <span class="text-yellow-500 font-black text-lg">01.</span> <div><strong class="text-slate-100 block mb-1">ハンデス＆リソース管理</strong>《ジェニージェーン》による複数枚ハンデスを想定し、マナ加速や墓地リソースを優先的に活用。</div>
+- <span class="text-yellow-500 font-black text-lg">01.</span> <div><strong class="text-slate-100 block mb-1">Guide Not Found</strong>まだこのマッチアップのガイドは投稿されていません。</div>
+`;
+                    setInsight(mockMarkdown);
+                }
+            })
+            .catch(() => {
+                const mockMarkdown = `
+**<span class="flex items-center gap-2"><span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>競技調整チーム・分析ログ</span>**
 
-- <span class="text-yellow-500 font-black text-lg">02.</span> <div><strong class="text-slate-100 block mb-1">盾の踏み方とトリガーケア</strong>相手が「クロック」採用圏内であれば、ジャストキルではなく常に+1打点以上の構築を維持。</div>
+- <span class="text-yellow-500 font-black text-lg">01.</span> <div><strong class="text-slate-100 block mb-1">Guide Not Found</strong>まだこのマッチアップのガイドは投稿されていません。</div>
+`;
+                setInsight(mockMarkdown);
+            });
 
-- <span class="text-yellow-500 font-black text-lg">03.</span> <div><strong class="text-slate-100 block mb-1">環境特有のロック回避</strong>アルカディアス着地後の「詰み」を避けるため、光以外の除去札を手札にキープする。</div>
-    `;
-        setInsight(mockMarkdown);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [attackerId, defenderId]);
+    }, [attackerId, defenderId, attacker, defender]);
 
     if (!attacker || !defender) return <div>Data not found</div>;
 
@@ -72,7 +103,7 @@ const DetailView: React.FC<DetailViewProps> = ({ attackerId, defenderId, onBack 
                 </div>
 
                 {/* Analysis */}
-                <div className="lg:col-span-2 space-y-6">
+                <div className="lg:col-span-3 space-y-6">
                     <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700">
                         <h3 className="text-lg font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
                             <span className="text-yellow-500">
@@ -93,26 +124,6 @@ const DetailView: React.FC<DetailViewProps> = ({ attackerId, defenderId, onBack 
                             >
                                 {insight}
                             </ReactMarkdown>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Sidebar Cards */}
-                <div className="space-y-6">
-                    <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700">
-                        <h3 className="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] mb-4">Focus Card</h3>
-                        <div className="space-y-3">
-                            <div className="p-4 bg-slate-900 rounded-xl border border-slate-700 relative overflow-hidden group cursor-pointer">
-                                <div className="absolute inset-0 bg-yellow-500/5 group-hover:bg-yellow-500/10 transition-colors"></div>
-                                <div className="relative z-10">
-                                    <div className="text-[9px] text-yellow-500 font-bold mb-1 uppercase tracking-widest">Crucial Unit</div>
-                                    <div className="font-bold text-sm text-white">ジェニージェーン</div>
-                                    <p className="text-[10px] text-slate-500 mt-2">出た時ハンデス+スレイヤーブロッカー。1枚でゲームを支配するスペック。</p>
-                                </div>
-                            </div>
-                            <div className="p-4 bg-slate-900 rounded-xl border border-slate-700 opacity-40">
-                                <div className="font-bold text-[10px] text-slate-400">ザ・クロック (ST)</div>
-                            </div>
                         </div>
                     </div>
                 </div>

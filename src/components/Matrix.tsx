@@ -1,34 +1,17 @@
 import React from 'react';
 import { DECK_DATA, WIN_RATES } from '../data/mock';
 import { getCellColor } from '../utils';
+import BentoGrid from './BentoGrid';
 
 interface MatrixProps {
     onCellClick: (attackerId: string, defenderId: string) => void;
+    onArticleClick: (path: string) => void;
 }
 
-const Matrix: React.FC<MatrixProps> = ({ onCellClick }) => {
+const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-                    <p className="text-[10px] text-slate-500 font-bold uppercase mb-1">Dominant Deck</p>
-                    <p className="text-sm font-black">アウトレイジ</p>
-                </div>
-                <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-                    <p className="text-[10px] text-slate-500 font-bold uppercase mb-1">Aggro King</p>
-                    <p className="text-sm font-black">赤白アポロ</p>
-                </div>
-                <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-                    <p className="text-[10px] text-slate-500 font-bold uppercase mb-1">Peak Win Rate</p>
-                    <p className="text-sm font-black text-green-400">リンネ (54.8%)</p>
-                </div>
-                <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex items-center justify-center gap-2">
-                    <div className="w-3 h-3 rounded bg-green-600"></div>
-                    <div className="w-3 h-3 rounded bg-yellow-500/20"></div>
-                    <div className="w-3 h-3 rounded bg-red-700"></div>
-                    <span className="text-[10px] font-bold text-slate-500 ml-1 uppercase">Win Grade</span>
-                </div>
-            </div>
+            <BentoGrid onArticleClick={onArticleClick} />
 
             <div className="relative overflow-x-auto rounded-2xl border border-slate-800 shadow-2xl bg-slate-950">
                 <table className="w-full border-collapse">
@@ -79,7 +62,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick }) => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
     );
 };
 
