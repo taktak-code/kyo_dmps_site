@@ -89,12 +89,14 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
 
     return (
         <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 min-h-[400px] animate-in fade-in duration-700 delay-100">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-8 animate-in fade-in duration-700 delay-100">
 
-                {/* 1. Left Column: Tier List Card (Span 1, Row Span 2) */}
+                {/* 1. Tier List Card */}
+                {/* Mobile: Top Left, Span 1, Height fits 2 small cards (~220px) */}
+                {/* Desktop: Left Col, Span 1, Row Span 2 */}
                 <div
                     onClick={() => setIsTierModalOpen(true)}
-                    className="group relative md:col-span-1 md:row-span-2 rounded-3xl overflow-hidden cursor-pointer border border-slate-800 bg-slate-900 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20 hover:border-blue-500/50 h-[400px] md:h-auto"
+                    className="group relative col-span-1 row-span-2 md:col-span-1 md:row-span-2 rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer border border-slate-800 bg-slate-900 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20 hover:border-blue-500/50 h-[220px] md:h-auto"
                 >
                     <div className="absolute inset-0 bg-slate-950 z-0">
                         <img
@@ -106,22 +108,24 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90"></div>
                     </div>
 
-                    <div className="relative z-10 h-full flex flex-col justify-end p-5">
-                        <div className="flex items-center gap-2 mb-2">
-                            <div className="bg-blue-600 text-white p-1.5 rounded-lg shadow-lg group-hover:scale-110 transition-transform">
-                                <Maximize2 size={18} />
+                    <div className="relative z-10 h-full flex flex-col justify-end p-3 md:p-5">
+                        <div className="flex items-center gap-2 mb-1 md:mb-2">
+                            <div className="bg-blue-600 text-white p-1 md:p-1.5 rounded-md md:rounded-lg shadow-lg group-hover:scale-110 transition-transform">
+                                <Maximize2 size={12} className="md:w-[18px] md:h-[18px]" />
                             </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-blue-300 bg-blue-900/50 px-2 py-0.5 rounded border border-blue-500/30">Tier List</span>
+                            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-blue-300 bg-blue-900/50 px-1.5 py-0.5 rounded border border-blue-500/30">Tier List</span>
                         </div>
-                        <h3 className="text-xl font-black text-white leading-tight mb-1 drop-shadow-md">
-                            Latest Meta Tier List
+                        <h3 className="text-sm md:text-xl font-black text-white leading-tight mb-0.5 md:mb-1 drop-shadow-md">
+                            Meta Tier
                         </h3>
-                        <p className="text-xs text-slate-400 font-medium">Click to expand • Updated via Bot</p>
+                        <p className="hidden md:block text-xs text-slate-400 font-medium">Click to expand</p>
                     </div>
                 </div>
 
-                {/* 2. Top Right: YouTube Card (Span 2) */}
-                <div className="relative md:col-span-2 md:row-span-1 h-[200px] rounded-3xl overflow-hidden border border-slate-800 bg-black group hover:shadow-xl hover:shadow-red-500/10 hover:border-red-500/40 transition-all duration-300">
+                {/* 2. YouTube Card */}
+                {/* Mobile: Top Right, Span 1, Height Small (~105px) */}
+                {/* Desktop: Top Right, Span 2, Height Normal */}
+                <div className="relative col-span-1 md:col-span-2 md:row-span-1 h-[105px] md:h-[200px] rounded-2xl md:rounded-3xl overflow-hidden border border-slate-800 bg-black group hover:shadow-xl hover:shadow-red-500/10 hover:border-red-500/40 transition-all duration-300">
                     <iframe
                         width="100%"
                         height="100%"
@@ -133,53 +137,57 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
                         className="absolute inset-0 w-full h-full opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                     ></iframe>
                     <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent pointer-events-none"></div>
-                    <div className="absolute bottom-4 left-5 pointer-events-none">
-                        <div className="flex items-center gap-2 text-red-500 mb-1">
-                            <Play size={14} fill="currentColor" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-red-500">Latest Video</span>
+                    <div className="absolute bottom-2 left-3 md:bottom-4 md:left-5 pointer-events-none">
+                        <div className="flex items-center gap-1.5 md:gap-2 text-red-500 mb-0.5 md:mb-1">
+                            <Play size={10} className="md:w-[14px] md:h-[14px]" fill="currentColor" />
+                            <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-red-500">Latest</span>
                         </div>
                         {youtubeVideo && (
                             <div className="max-w-md">
-                                <h3 className="text-lg font-bold text-white leading-tight line-clamp-1 drop-shadow-md">
+                                <h3 className="text-xs md:text-lg font-bold text-white leading-tight line-clamp-1 drop-shadow-md">
                                     {youtubeVideo.title}
                                 </h3>
-                                <p className="text-[10px] text-slate-400 mt-0.5">{youtubeVideo.pubDate}</p>
+                                <p className="hidden md:block text-[10px] text-slate-400 mt-0.5">{youtubeVideo.pubDate}</p>
                             </div>
                         )}
                     </div>
                 </div>
 
-                {/* 3. Bottom Center: Tech/Markdown Card (Span 1) */}
+                {/* 3. Tech/Markdown Card */}
+                {/* Mobile: Middle Right, Span 1, Height Small (~105px) */}
+                {/* Desktop: Bottom Center, Span 1, Height Normal */}
                 <div
                     onClick={() => onArticleClick(latestArticle.path)}
-                    className="group relative md:col-span-1 md:row-span-1 h-[180px] rounded-3xl overflow-hidden cursor-pointer border border-slate-800 bg-slate-900 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 hover:border-purple-500/40"
+                    className="group relative col-span-1 md:col-span-1 md:row-span-1 h-[105px] md:h-[180px] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer border border-slate-800 bg-slate-900 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 hover:border-purple-500/40"
                 >
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-900 to-slate-950"></div>
-                    <div className="relative h-full flex flex-col justify-between p-5">
+                    <div className="relative h-full flex flex-col justify-between p-3 md:p-5">
                         <div className="flex justify-between items-start">
-                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-300 border border-purple-500/10">
-                                <FileText size={10} />
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] md:text-[9px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-300 border border-purple-500/10">
+                                <FileText size={8} className="md:w-[10px] md:h-[10px]" />
                                 {latestArticle.category}
                             </span>
-                            <ArrowUpRight size={14} className="text-slate-600 group-hover:text-purple-400 transition-colors" />
+                            <ArrowUpRight size={12} className="text-slate-600 group-hover:text-purple-400 transition-colors md:w-[14px] md:h-[14px]" />
                         </div>
                         <div>
-                            <h3 className="text-lg font-black text-white leading-tight mb-2 group-hover:text-purple-200 transition-colors line-clamp-2">
+                            <h3 className="text-xs md:text-lg font-black text-white leading-tight mb-1 md:mb-2 group-hover:text-purple-200 transition-colors line-clamp-2">
                                 {latestArticle.title}
                             </h3>
-                            <div className="flex items-center gap-2 text-[10px] text-slate-500">
+                            <div className="flex items-center gap-2 text-[8px] md:text-[10px] text-slate-500">
                                 <span>{latestArticle.date}</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* 4. Bottom Right: Note Card (Span 1) */}
+                {/* 4. Note Card */}
+                {/* Mobile: Bottom, Span 2, Height Very Small (~80px) -> Banner Style */}
+                {/* Desktop: Bottom Right, Span 1, Height Normal */}
                 <a
                     href={noteArticle ? noteArticle.link : "https://note.com/kyo_dmps"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative md:col-span-1 md:row-span-1 h-[180px] rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 transition-all duration-300 hover:shadow-xl hover:shadow-green-500/10 hover:border-green-500/40"
+                    className="group relative col-span-2 md:col-span-1 md:row-span-1 h-[80px] md:h-[180px] rounded-2xl md:rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 transition-all duration-300 hover:shadow-xl hover:shadow-green-500/10 hover:border-green-500/40"
                 >
                     {noteArticle ? (
                         <>
@@ -194,19 +202,19 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent"></div>
                             </div>
-                            <div className="relative z-10 h-full flex flex-col justify-between p-5">
-                                <div className="flex justify-between items-start">
+                            <div className="relative z-10 h-full flex flex-col justify-center md:justify-between p-4 md:p-5">
+                                <div className="flex justify-between items-start absolute top-3 left-4 md:static">
                                     <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-green-900/80 text-green-300 border border-green-500/20 backdrop-blur-sm">
                                         <BookOpen size={10} />
                                         Note
                                     </span>
-                                    <ArrowUpRight size={14} className="text-slate-400 group-hover:text-green-400 transition-colors" />
+                                    <ArrowUpRight size={14} className="hidden md:block text-slate-400 group-hover:text-green-400 transition-colors" />
                                 </div>
-                                <div>
-                                    <h3 className="text-base font-bold text-white leading-tight mb-1 line-clamp-2 group-hover:text-green-100 transition-colors">
+                                <div className="mt-4 md:mt-0">
+                                    <h3 className="text-sm md:text-base font-bold text-white leading-tight mb-0.5 md:mb-1 line-clamp-1 md:line-clamp-2 group-hover:text-green-100 transition-colors">
                                         {noteArticle.title}
                                     </h3>
-                                    <span className="text-[10px] text-slate-400">{noteArticle.pubDate}</span>
+                                    <span className="text-[10px] text-slate-400 hidden md:inline">{noteArticle.pubDate}</span>
                                 </div>
                             </div>
                         </>
