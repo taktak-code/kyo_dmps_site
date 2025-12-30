@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { DECK_DATA, WIN_RATES } from '../data/mock';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { ChevronLeft, Zap } from 'lucide-react';
+import type { Deck, WinRates } from '../types';
 
 interface DetailViewProps {
     attackerId: string;
@@ -12,38 +12,64 @@ interface DetailViewProps {
 
 const DetailView: React.FC<DetailViewProps> = ({ attackerId, defenderId, onBack }) => {
     const [insight, setInsight] = useState<string>('');
-
-    const attacker = DECK_DATA.find(d => d.id === attackerId);
-    const defender = DECK_DATA.find(d => d.id === defenderId);
-    const rate = WIN_RATES[attackerId]?.[defenderId] || 50;
+    const [decks, setDecks] = useState<Deck[]>([]);
+    const [winRates, setWinRates] = useState<WinRates>({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Find deck names for matching
-        const attackerName = attacker?.name;
-        const defenderName = defender?.name;
+        // Fetch Matrix Data
+        fetch('/data/matrix.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data.decks) setDecks(data.decks);
+                if (data.winRates) setWinRates(data.winRates);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to fetch data:", err);
+                setLoading(false);
+            });
+    }, []);
 
-        if (!attackerName || !defenderName) return;
+    // Resolve Decks
+    const attacker = decks.find(d => d.name === attackerId || d.id === attackerId);
+    const defender = decks.find(d => d.name === defenderId || d.id === defenderId);
+
+    // Resolve Rate
+    let rate: number | string = 50;
+    if (attacker && defender) {
+        if (winRates[attacker.name]?.[defender.name] !== undefined) {
+            rate = winRates[attacker.name][defender.name];
+        } else if (winRates[attacker.id]?.[defender.id] !== undefined) {
+            rate = winRates[attacker.id][defender.id];
+        }
+    }
+
+    const numRate = typeof rate === 'string' ? parseInt(rate, 10) : rate;
+    const displayRate = isNaN(numRate) ? '-' : numRate;
+    const colorClass = isNaN(numRate) ? 'text-slate-500' : (numRate >= 60 ? 'text-green-400' : numRate <= 40 ? 'text-red-400' : 'text-yellow-400');
+
+
+    useEffect(() => {
+        if (!attacker || !defender) return;
 
         // Try to fetch guide from json
         fetch('/data/guides.json')
             .then(res => res.json())
             .then(async (data) => {
                 const guide = data.items.find((item: any) =>
-                    item.attacker === attackerName && item.defender === defenderName
+                    item.attacker === attacker.name && item.defender === defender.name
                 );
 
                 if (guide) {
-                    // Fetch real markdown
                     try {
                         const mdRes = await fetch(guide.path);
                         const mdText = await mdRes.text();
                         setInsight(mdText);
                     } catch (e) {
-                        console.error("Failed to load guide markdown", e);
                         setInsight("Failed to load guide content.");
                     }
                 } else {
-                    // Fallback to mock if no guide found
                     const mockMarkdown = `
 **<span class="flex items-center gap-2"><span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>競技調整チーム・分析ログ</span>**
 
@@ -62,12 +88,29 @@ const DetailView: React.FC<DetailViewProps> = ({ attackerId, defenderId, onBack 
             });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [attackerId, defenderId, attacker, defender]);
+    }, [attacker, defender]);
 
-    if (!attacker || !defender) return <div>Data not found</div>;
+
+    if (loading) return <div className="text-white text-center py-20 animate-pulse">Loading data...</div>;
+
+    if (!attacker || !defender) {
+        return (
+            <div className="text-white text-center py-20">
+                <p>Data not found for decision.</p>
+                <div className="text-xs text-slate-500 mt-2">
+                    Attacker: {attackerId} ({attacker ? 'Found' : 'Missing'})<br />
+                    Defender: {defenderId} ({defender ? 'Found' : 'Missing'})
+                </div>
+                <button onClick={onBack} className="mt-4 text-blue-400 hover:underline">Back to Matrix</button>
+            </div>
+        );
+    }
 
     return (
-        <div className="animate-in fade-in slide-in-from-right duration-300">
+        <div
+            className="animate-in fade-in ease-in fill-mode-forwards"
+            style={{ '--tw-enter-duration': '3500ms' } as React.CSSProperties}
+        >
             <button onClick={onBack} className="mb-6 flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-xs font-black uppercase tracking-widest">
                 <ChevronLeft size={16} /> Back to Matrix
             </button>
@@ -87,8 +130,8 @@ const DetailView: React.FC<DetailViewProps> = ({ attackerId, defenderId, onBack 
                     </div>
 
                     <div className="text-center relative z-10 bg-slate-950/50 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
-                        <div className={`text-7xl font-black mb-1 ${rate >= 60 ? 'text-green-400' : rate <= 40 ? 'text-red-400' : 'text-yellow-400'}`}>
-                            {rate}%
+                        <div className={`text-7xl font-black mb-1 ${colorClass}`}>
+                            {displayRate}%
                         </div>
                         <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Predicted Edge</div>
                     </div>

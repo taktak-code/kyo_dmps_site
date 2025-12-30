@@ -41,10 +41,20 @@ function App() {
     setArticleData(null);
   };
 
+  const handleBackgroundClick = (e: React.MouseEvent) => {
+    // Navigate back if clicking the background while in detail/article view
+    if (view !== 'matrix' && e.target === e.currentTarget) {
+      handleBack();
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        <Header />
+    <div
+      className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8"
+      onClick={handleBackgroundClick}
+    >
+      <div className="max-w-7xl mx-auto" onClick={handleBackgroundClick}>
+        <Header onLogoClick={view !== 'matrix' ? handleBack : undefined} />
 
         <div id="content-area">
           {view === 'matrix' ? (

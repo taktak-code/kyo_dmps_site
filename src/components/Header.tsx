@@ -1,9 +1,16 @@
 import React from 'react';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+    onLogoClick?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
     return (
         <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-slate-800 pb-8">
-            <div>
+            <div
+                onClick={onLogoClick}
+                className={`transition-opacity ${onLogoClick ? 'cursor-pointer hover:opacity-80' : ''}`}
+            >
                 <div className="bg-yellow-500 text-black font-black px-2 py-0.5 rounded text-xs italic w-fit mb-1 uppercase">Kyo-Pre! AI Manager</div>
                 <h1 className="text-3xl font-black tracking-tighter uppercase">Meta-Matrix <span className="text-yellow-500">ND</span></h1>
             </div>

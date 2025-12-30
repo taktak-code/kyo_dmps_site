@@ -89,7 +89,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
 
     return (
         <>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-8 animate-in fade-in duration-700 delay-100">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-8">
 
                 {/* 1. Tier List Card */}
                 {/* Mobile: Top Left, Span 1, Height fits 2 small cards (~220px) */}

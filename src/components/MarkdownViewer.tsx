@@ -15,7 +15,10 @@ interface MarkdownViewerProps {
 
 const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ content, onBack, metadata }) => {
     return (
-        <div className="animate-in fade-in slide-in-from-right-4 duration-500">
+        <div
+            className="animate-in fade-in ease-in fill-mode-forwards"
+            style={{ '--tw-enter-duration': '3500ms' } as React.CSSProperties}
+        >
             <button
                 onClick={onBack}
                 className="group flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-200 mb-6 transition-colors pl-1"
