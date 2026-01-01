@@ -1,7 +1,13 @@
+export interface MatrixData {
+    season?: string;
+    decks: Deck[];
+    winRates: WinRates;
+    tierListImage?: string;
+}
+
 export interface Deck {
     id: string;
     name: string;
-    share: number;
     img: string;
 }
 

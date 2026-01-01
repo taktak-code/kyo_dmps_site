@@ -11,6 +11,7 @@ interface MatrixProps {
 const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
     const [decks, setDecks] = useState<Deck[]>([]);
     const [winRates, setWinRates] = useState<WinRates>({});
+    const [tierListImage, setTierListImage] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -19,6 +20,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
             .then(data => {
                 if (data.decks) setDecks(data.decks);
                 if (data.winRates) setWinRates(data.winRates);
+                if (data.tierListImage) setTierListImage(data.tierListImage);
                 setLoading(false);
             })
             .catch(err => {
@@ -37,7 +39,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
                 className="space-y-8 animate-in fade-in ease-out fill-mode-forwards"
                 style={{ '--tw-enter-duration': '1500ms' } as React.CSSProperties}
             >
-                <BentoGrid onArticleClick={onArticleClick} />
+                <BentoGrid onArticleClick={onArticleClick} tierListImage={tierListImage} />
                 <div className="text-center text-slate-500 py-10 bg-slate-950 rounded-2xl border border-slate-800">
                     <p>No deck data available yet.</p>
                 </div>
@@ -50,7 +52,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
             className="space-y-8 animate-in fade-in ease-out fill-mode-forwards"
             style={{ '--tw-enter-duration': '1500ms' } as React.CSSProperties}
         >
-            <BentoGrid onArticleClick={onArticleClick} />
+            <BentoGrid onArticleClick={onArticleClick} tierListImage={tierListImage} />
 
             <div className="relative overflow-x-auto rounded-2xl border border-separate border-slate-800 shadow-2xl bg-slate-950">
                 <table className="w-full border-separate border-spacing-0">
@@ -67,7 +69,6 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
                                     <div className="header-cell-overlay"></div>
                                     <div className="relative z-10 flex flex-col items-center">
                                         <span className="text-[10px] font-black uppercase tracking-tighter text-white drop-shadow-lg">{deck.name}</span>
-                                        <span className="text-[9px] text-slate-300 font-bold">{deck.share > 0 ? `${deck.share}%` : ''}</span>
                                     </div>
                                 </th>
                             ))}

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { BookOpen, FileText, ArrowUpRight, Play, Maximize2, X } from 'lucide-react';
 
 interface BentoGridProps {
     onArticleClick: (path: string) => void;
+    tierListImage?: string;
 }
 
 interface NoteItem {
@@ -19,7 +21,7 @@ interface YouTubeItem {
     thumbnail: string;
 }
 
-const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
+const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '/data/tier_list.jpg' }) => {
     const [noteArticle, setNoteArticle] = useState<NoteItem | null>(null);
     const [youtubeVideo, setYoutubeVideo] = useState<YouTubeItem | null>(null);
     const [isTierModalOpen, setIsTierModalOpen] = useState(false);
@@ -34,7 +36,6 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
     });
 
     const defaultNoteImage = 'https://assets.st-note.com/production/uploads/images/logo_gray.png';
-    const tierListImage = '/data/tier_list.jpg';
 
     useEffect(() => {
         // Fetch Guides JSON for Latest Article
@@ -52,7 +53,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
                     });
                 }
             })
-            .catch(error => console.log('No specific guides found, using default.'));
+            .catch(() => console.log('No specific guides found, using default.'));
 
         // Fetch Note JSON
         fetch('/data/note_latest.json')
@@ -227,37 +228,45 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick }) => {
                 </a>
             </div>
 
-            {/* Tier List Modal */}
-            {isTierModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(5px)' }}>
+            {isTierModalOpen && createPortal(
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-6" style={{ backgroundColor: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(8px)' }}>
+                    {/* Backdrop Click Handler */}
                     <div
                         className="absolute inset-0"
                         onClick={() => setIsTierModalOpen(false)}
                     ></div>
-                    <div className="relative bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-                        <div className="flex justify-between items-center p-4 border-b border-slate-800 bg-slate-950">
-                            <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                                <div className="bg-blue-600 text-white p-1 rounded">
-                                    <Maximize2 size={14} />
-                                </div>
-                                Tier List
-                            </h3>
+
+                    {/* Content Container */}
+                    <div className="relative z-10 w-full h-full max-w-[95vw] max-h-[95vh] flex flex-col items-center justify-center animate-in zoom-in-95 duration-200">
+                        {/* Floating Header / Close Button */}
+                        <div className="absolute top-0 right-0 z-20 m-2 flex gap-2">
+                            <a
+                                href={tierListImage}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-slate-900/50 hover:bg-slate-800 text-white p-2 rounded-full backdrop-blur-md border border-slate-700 transition-colors"
+                                title="Open Original"
+                            >
+                                <Maximize2 size={24} />
+                            </a>
                             <button
                                 onClick={() => setIsTierModalOpen(false)}
-                                className="p-2 hover:bg-slate-800 rounded-full text-slate-400 hover:text-white transition-colors"
+                                className="bg-slate-900/50 hover:bg-slate-800 text-white p-2 rounded-full backdrop-blur-md border border-slate-700 transition-colors"
                             >
-                                <X size={20} />
+                                <X size={24} />
                             </button>
                         </div>
-                        <div className="flex-1 overflow-auto p-2 bg-black flex items-center justify-center">
-                            <img
-                                src={tierListImage}
-                                alt="Tier List Full"
-                                className="max-w-full max-h-full object-contain"
-                            />
-                        </div>
+
+                        {/* Image - Object Contain to maximize usage of space while keeping ratio */}
+                        <img
+                            src={tierListImage}
+                            alt="Tier List Full"
+                            className="w-full h-full object-contain drop-shadow-2xl rounded-lg"
+                            onClick={(e) => e.stopPropagation()}
+                        />
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </>
     );
