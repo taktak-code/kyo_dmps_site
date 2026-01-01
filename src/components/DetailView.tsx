@@ -18,7 +18,7 @@ const DetailView: React.FC<DetailViewProps> = ({ attackerId, defenderId, onBack 
 
     useEffect(() => {
         // Fetch Matrix Data
-        fetch('/data/matrix.json')
+        fetch('/data/matrix_latest.json')
             .then(res => res.json())
             .then(data => {
                 if (data.decks) setDecks(data.decks);
@@ -54,7 +54,7 @@ const DetailView: React.FC<DetailViewProps> = ({ attackerId, defenderId, onBack 
         if (!attacker || !defender) return;
 
         // Try to fetch guide from json
-        fetch('/data/guides.json')
+        fetch('/data/guides_latest.json')
             .then(res => res.json())
             .then(async (data) => {
                 const guide = data.items.find((item: any) =>

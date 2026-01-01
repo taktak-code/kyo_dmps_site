@@ -39,7 +39,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
 
     useEffect(() => {
         // Fetch Guides JSON for Latest Article
-        fetch('/data/guides.json')
+        fetch('/data/guides_latest.json')
             .then(response => response.json())
             .then(data => {
                 if (data.items && data.items.length > 0) {

@@ -15,7 +15,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/data/matrix.json')
+        fetch('/data/matrix_latest.json')
             .then(res => res.json())
             .then(data => {
                 if (data.decks) setDecks(data.decks);
