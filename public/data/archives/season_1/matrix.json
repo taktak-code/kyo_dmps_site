@@ -2,11 +2,6 @@
   "season": "season_1",
   "decks": [
     {
-      "id": "デイガナイト (S1)",
-      "name": "デイガナイト (S1)",
-      "img": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=400&q=80"
-    },
-    {
       "id": "4cキング (S1)",
       "name": "4cキング (S1)",
       "img": "https://images.unsplash.com/photo-1635326444826-06c8f8d9e6c5?auto=format&fit=crop&w=400&q=80"
@@ -23,23 +18,15 @@
     }
   ],
   "winRates": {
-    "デイガナイト (S1)": {
-      "4cキング (S1)": 60,
-      "TestDeck": "N/A",
-      "青黒ミザリィ": "N/A"
-    },
     "4cキング (S1)": {
-      "デイガナイト (S1)": 40,
       "TestDeck": "N/A",
       "青黒ミザリィ": "N/A"
     },
     "TestDeck": {
-      "デイガナイト (S1)": "N/A",
       "4cキング (S1)": "N/A",
       "青黒ミザリィ": "30"
     },
     "青黒ミザリィ": {
-      "デイガナイト (S1)": "N/A",
       "4cキング (S1)": "N/A",
       "TestDeck": "70"
     }
