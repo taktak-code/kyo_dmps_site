@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Matrix from './components/Matrix';
 import DetailView from './components/DetailView';
@@ -7,16 +7,36 @@ import './index.css';
 
 function App() {
   const [view, setView] = useState<'matrix' | 'detail' | 'article'>('matrix');
-  const [selectedMatchup, setSelectedMatchup] = useState<{ attacker: string; defender: string } | null>(null);
+  const [selectedMatchup, setSelectedMatchup] = useState<{ player: string; opponent: string } | null>(null);
   const [articleData, setArticleData] = useState<{ content: string; meta?: any } | null>(null);
+  const savedScrollY = useRef(0);
+  const pendingScrollRestore = useRef(false);
 
-  const handleCellClick = (attackerId: string, defenderId: string) => {
-    setSelectedMatchup({ attacker: attackerId, defender: defenderId });
+  // Handle scroll restoration after returning to matrix view
+  useEffect(() => {
+    if (view === 'matrix' && pendingScrollRestore.current) {
+      // Use multiple requestAnimationFrame to ensure React has finished all updates
+      // and the browser has painted the DOM
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, savedScrollY.current);
+          pendingScrollRestore.current = false;
+        });
+      });
+    }
+  }, [view]);
+
+  const handleCellClick = (playerId: string, opponentId: string) => {
+    savedScrollY.current = window.scrollY;
+    setSelectedMatchup({ player: playerId, opponent: opponentId });
     setView('detail');
+    // Scroll to top when entering detail view
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleArticleClick = async (path: string) => {
     try {
+      savedScrollY.current = window.scrollY;
       const response = await fetch(path);
       if (!response.ok) throw new Error('Failed to load markdown');
       const text = await response.text();
@@ -30,12 +50,15 @@ function App() {
         }
       });
       setView('article');
+      // Scroll to top when entering article view
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error('Error loading article:', error);
     }
   };
 
   const handleBack = () => {
+    pendingScrollRestore.current = true;
     setView('matrix');
     setSelectedMatchup(null);
     setArticleData(null);
@@ -61,8 +84,8 @@ function App() {
             <Matrix onCellClick={handleCellClick} onArticleClick={handleArticleClick} />
           ) : view === 'detail' && selectedMatchup ? (
             <DetailView
-              attackerId={selectedMatchup.attacker}
-              defenderId={selectedMatchup.defender}
+              playerId={selectedMatchup.player}
+              opponentId={selectedMatchup.opponent}
               onBack={handleBack}
             />
           ) : view === 'article' && articleData ? (

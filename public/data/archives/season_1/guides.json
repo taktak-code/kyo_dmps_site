@@ -6,8 +6,8 @@
             "category": "GUIDE",
             "path": "/data/archives/season_1/guides/20251229_赤白アポロ_vs_アウトレイジ.md",
             "summary": "赤白アポロ視点のアウトレイジ対面攻略ガイド。速度勝負のポイントと5000GT着地前の立ち回りについて解説。",
-            "attacker": "赤白アポロ",
-            "defender": "アウトレイジ"
+            "player": "赤白アポロ",
+            "opponent": "アウトレイジ"
         }
     ]
 }
