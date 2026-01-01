@@ -97,11 +97,7 @@ function App() {
           ) : null}
         </div>
 
-        <footer className="mt-24 border-t border-slate-900 pt-10 pb-20 text-center">
-          <p className="text-[10px] text-slate-600 font-black tracking-[0.3em] uppercase">
-            Kyopure Strategic Interface // Visual Analytics
-          </p>
-        </footer>
+
       </div>
     </div>
   );

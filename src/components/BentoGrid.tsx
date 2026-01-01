@@ -117,7 +117,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
                             <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-blue-300 bg-blue-900/50 px-1.5 py-0.5 rounded border border-blue-500/30">Tier List</span>
                         </div>
                         <h3 className="text-sm md:text-xl font-black text-white leading-tight mb-0.5 md:mb-1 drop-shadow-md">
-                            Meta Tier
+                            Tier List
                         </h3>
                         <p className="hidden md:block text-xs text-slate-400 font-medium">Click to expand</p>
                     </div>
