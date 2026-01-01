@@ -86,11 +86,11 @@ Discordで `/update_tier` コマンドを実行し、画像を添付してくだ
 **【推奨】Botを使用する方法**
 
 Discordで `/submit_guide` コマンドを実行し、Markdownファイル（`.md`）を添付してください。
-- `attacker`: 攻める側のデッキ名（オートコンプリート対応）
-- `defender`: 守る側のデッキ名（オートコンプリート対応）
+- `player`: 攻める側のデッキ名（オートコンプリート対応）
+- `opponent`: 守る側のデッキ名（オートコンプリート対応）
 - 保存先: `public/data/archives/[season]/guides/`
 
-ファイル名は自動的に `[日付]_[attacker]_vs_[defender].md` に変換されます。
+ファイル名は自動的に `[日付]_[player]_vs_[opponent].md` に変換されます。
 
 **【緊急時】手動で更新する方法**
 
@@ -111,8 +111,8 @@ Discordで `/submit_guide` コマンドを実行し、Markdownファイル（`.m
             "category": "GUIDE",
             "path": "/data/archives/season_1/guides/ファイル名.md",
             "summary": "カードに表示される短い要約文",
-            "attacker": "攻めるデッキ名",
-            "defender": "守るデッキ名"
+            "player": "攻めるデッキ名",
+            "opponent": "守るデッキ名"
         }
     ]
 }
