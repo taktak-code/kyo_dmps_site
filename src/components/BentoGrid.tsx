@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { BookOpen, FileText, ArrowUpRight, Play, Maximize2, X } from 'lucide-react';
+import { getAssetPath } from '../utils';
 
 interface BentoGridProps {
     onArticleClick: (path: string) => void;
@@ -39,7 +40,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
 
     useEffect(() => {
         // Fetch Guides JSON for Latest Article
-        fetch('/data/guides_latest.json')
+        fetch(`${import.meta.env.BASE_URL}data/guides_latest.json`)
             .then(response => response.json())
             .then(data => {
                 if (data.items && data.items.length > 0) {
@@ -56,7 +57,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
             .catch(() => console.log('No specific guides found, using default.'));
 
         // Fetch Note JSON
-        fetch('/data/note_latest.json')
+        fetch(`${import.meta.env.BASE_URL}data/note_latest.json`)
             .then(response => response.json())
             .then(data => {
                 if (data.items && data.items.length > 0) {
@@ -72,7 +73,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
             .catch(error => console.error('Error fetching note data:', error));
 
         // Fetch YouTube JSON
-        fetch('/data/youtube_latest.json')
+        fetch(`${import.meta.env.BASE_URL}data/youtube_latest.json`)
             .then(response => response.json())
             .then(data => {
                 if (data.items && data.items.length > 0) {
@@ -101,7 +102,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
                 >
                     <div className="absolute inset-0 bg-slate-950 z-0">
                         <img
-                            src={tierListImage}
+                            src={getAssetPath(tierListImage)}
                             alt="Tier List"
                             className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                             onError={(e) => e.currentTarget.src = 'https://placehold.co/600x400/1e293b/475569?text=No+Tier+Image'}
@@ -241,7 +242,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
                         {/* Floating Header / Close Button */}
                         <div className="absolute top-0 right-0 z-20 m-2 flex gap-2">
                             <a
-                                href={tierListImage}
+                                href={getAssetPath(tierListImage)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="bg-slate-900/50 hover:bg-slate-800 text-white p-2 rounded-full backdrop-blur-md border border-slate-700 transition-colors"
@@ -259,7 +260,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
 
                         {/* Image - Object Contain to maximize usage of space while keeping ratio */}
                         <img
-                            src={tierListImage}
+                            src={getAssetPath(tierListImage)}
                             alt="Tier List Full"
                             className="w-full h-full object-contain drop-shadow-2xl rounded-lg"
                             onClick={(e) => e.stopPropagation()}

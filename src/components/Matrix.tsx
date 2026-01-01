@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getCellColor } from '../utils';
+import { getCellColor, getAssetPath } from '../utils';
 import BentoGrid from './BentoGrid';
 import type { Deck, WinRates } from '../types';
 
@@ -15,7 +15,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/data/matrix_latest.json')
+        fetch(`${import.meta.env.BASE_URL}data/matrix_latest.json`)
             .then(res => res.json())
             .then(data => {
                 if (data.decks) setDecks(data.decks);
@@ -79,7 +79,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
                                 </div>
                             </th>
                             {decks.map(deck => (
-                                <th key={deck.id} className="p-4 border-b border-slate-800 min-w-[120px] text-center deck-cell-bg" style={{ backgroundImage: `url('${deck.img}')` }}>
+                                <th key={deck.id} className="p-4 border-b border-slate-800 min-w-[120px] text-center deck-cell-bg" style={{ backgroundImage: `url('${getAssetPath(deck.img)}')` }}>
                                     <div className="header-cell-overlay"></div>
                                     <div className="relative z-10 flex flex-col items-center">
                                         <span className="text-[10px] font-black uppercase tracking-tighter text-white drop-shadow-lg">{deck.name}</span>
@@ -92,7 +92,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
                         {decks.map(player => (
                             <tr key={player.id}>
                                 <td className="p-0 md:p-4 border-r border-b border-slate-800 sticky-cell z-20 font-black text-[11px] deck-cell-bg shadow-xl whitespace-nowrap"
-                                    style={{ backgroundImage: `url('${player.img}')` }}>
+                                    style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}>
                                     <div className="absolute inset-0 bg-slate-900/40 opacity-100 z-0"></div>
                                     <div className="relative z-10 flex items-center justify-start gap-2 md:gap-3 h-full min-h-[56px] md:h-auto px-2 md:px-0 py-2 md:py-0">
                                         <span className="uppercase text-white drop-shadow-md tracking-tight text-[9px] md:text-[11px] leading-tight break-words w-full">{player.name}</span>

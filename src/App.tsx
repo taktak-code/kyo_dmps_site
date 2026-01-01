@@ -37,7 +37,7 @@ function App() {
   const handleArticleClick = async (path: string) => {
     try {
       savedScrollY.current = window.scrollY;
-      const response = await fetch(path);
+      const response = await fetch(`${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`);
       if (!response.ok) throw new Error('Failed to load markdown');
       const text = await response.text();
       setArticleData({

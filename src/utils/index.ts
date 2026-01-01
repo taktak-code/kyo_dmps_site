@@ -18,3 +18,20 @@ export function getCellColor(rate: number | string | undefined | null): string {
     if (numRate >= 35) return 'rgba(239, 68, 68, 0.4)';
     return 'rgba(185, 28, 28, 0.8)';
 }
+
+/**
+ * Resolves asset paths for GitHub Pages deployment.
+ * External URLs (http/https) are returned as-is.
+ * Internal paths get BASE_URL prepended.
+ */
+export function getAssetPath(path: string | undefined): string {
+    if (!path) return '';
+    // External URLs: return as-is
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+        return path;
+    }
+    // Internal paths: prepend BASE_URL
+    const base = import.meta.env.BASE_URL;
+    const cleanPath = path.replace(/^\//, ''); // Remove leading slash
+    return `${base}${cleanPath}`;
+}

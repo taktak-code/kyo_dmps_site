@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { ChevronLeft, Zap } from 'lucide-react';
+import { getAssetPath } from '../utils';
 import type { Deck, WinRates } from '../types';
 
 interface DetailViewProps {
@@ -18,7 +19,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
 
     useEffect(() => {
         // Fetch Matrix Data
-        fetch('/data/matrix_latest.json')
+        fetch(`${import.meta.env.BASE_URL}data/matrix_latest.json`)
             .then(res => res.json())
             .then(data => {
                 if (data.decks) setDecks(data.decks);
@@ -70,7 +71,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
         }
 
         // Try to fetch guide from json
-        fetch('/data/guides_latest.json')
+        fetch(`${import.meta.env.BASE_URL}data/guides_latest.json`)
             .then(res => res.json())
             .then(async (data) => {
                 const guide = data.items.find((item: any) =>
@@ -79,7 +80,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
 
                 if (guide) {
                     try {
-                        const mdRes = await fetch(guide.path);
+                        const mdRes = await fetch(`${import.meta.env.BASE_URL}${guide.path.replace(/^\//, '')}`);
                         const mdText = await mdRes.text();
                         setInsight(mdText);
                     } catch (e) {
@@ -133,11 +134,11 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                 {/* Matchup Banner */}
                 <div className="lg:col-span-3 rounded-2xl p-10 flex flex-col md:flex-row items-center justify-around gap-12 text-white shadow-2xl relative overflow-hidden border border-slate-700">
                     <div className="absolute inset-0 bg-slate-900 opacity-90 z-0"></div>
-                    <div className="absolute inset-0 z-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: `url('${player.img}')` }}></div>
+                    <div className="absolute inset-0 z-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}></div>
 
                     <div className="text-center relative z-10 hidden md:block">
                         <div className="w-28 h-28 rounded-full mx-auto mb-4 flex items-center justify-center shadow-2xl border-4 border-slate-700 bg-cover bg-center"
-                            style={{ backgroundImage: `url('${player.img}')` }}>
+                            style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}>
                         </div>
                         <h2 className="text-2xl font-black uppercase tracking-tighter">{player.name}</h2>
                         <span className="text-slate-400 text-[10px] font-black tracking-widest uppercase">Player Side</span>
@@ -152,7 +153,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
 
                     <div className="text-center relative z-10 hidden md:block">
                         <div className="w-28 h-28 rounded-full mx-auto mb-4 flex items-center justify-center shadow-2xl border-4 border-slate-700 bg-cover bg-center"
-                            style={{ backgroundImage: `url('${opponent.img}')` }}>
+                            style={{ backgroundImage: `url('${getAssetPath(opponent.img)}')` }}>
                         </div>
                         <h2 className="text-2xl font-black uppercase tracking-tighter">{opponent.name}</h2>
                         <span className="text-slate-400 text-[10px] font-black tracking-widest uppercase">Opponent Side</span>
