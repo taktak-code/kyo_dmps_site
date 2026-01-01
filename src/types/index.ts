@@ -12,7 +12,7 @@ export interface Deck {
 }
 
 export interface WinRates {
-    [attackerId: string]: {
-        [defenderId: string]: number | string;
+    [playerId: string]: {
+        [opponentId: string]: number | string;
     };
 }

@@ -168,13 +168,34 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                             </span>
                             Tactical Insight
                         </h3>
-                        <div className="p-6 bg-slate-900 rounded-xl border border-slate-700 text-sm text-slate-300 leading-relaxed shadow-inner">
+                        <div className="p-6 bg-slate-900 rounded-xl border border-slate-700 text-sm text-slate-300 leading-relaxed shadow-inner prose prose-invert prose-sm max-w-none">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 components={{
-                                    // Customize markdown rendering if needed
-                                    strong: ({ node, ...props }) => <strong className="font-bold text-white block mb-4 border-b border-slate-700 pb-2" {...props} />,
-                                    li: ({ node, ...props }) => <li className="flex gap-4 mb-4" {...props} />,
+                                    // Headings
+                                    h1: ({ node, ...props }) => <h1 className="text-2xl font-black text-white mt-6 mb-4 pb-2 border-b border-slate-700" {...props} />,
+                                    h2: ({ node, ...props }) => <h2 className="text-xl font-black text-white mt-5 mb-3 pb-2 border-b border-slate-700/50" {...props} />,
+                                    h3: ({ node, ...props }) => <h3 className="text-lg font-bold text-slate-100 mt-4 mb-2" {...props} />,
+                                    h4: ({ node, ...props }) => <h4 className="text-base font-bold text-slate-200 mt-3 mb-2" {...props} />,
+                                    // Paragraphs
+                                    p: ({ node, ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
+                                    // Lists
+                                    ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-4 space-y-2 ml-2" {...props} />,
+                                    ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-4 space-y-2 ml-2" {...props} />,
+                                    li: ({ node, ...props }) => <li className="text-slate-300 leading-relaxed" {...props} />,
+                                    // Emphasis
+                                    strong: ({ node, ...props }) => <strong className="font-bold text-white" {...props} />,
+                                    em: ({ node, ...props }) => <em className="italic text-slate-200" {...props} />,
+                                    // Code
+                                    code: ({ node, ...props }) => <code className="bg-slate-800 text-yellow-400 px-1.5 py-0.5 rounded text-xs font-mono" {...props} />,
+                                    pre: ({ node, ...props }) => <pre className="bg-slate-800 p-4 rounded-lg overflow-x-auto mb-4 border border-slate-700" {...props} />,
+                                    // Blockquote
+                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-yellow-500 pl-4 py-2 mb-4 bg-slate-800/50 rounded-r-lg italic text-slate-400" {...props} />,
+                                    // Links
+                                    a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 underline" {...props} />,
+                                    // Horizontal rule
+                                    hr: ({ node, ...props }) => <hr className="border-slate-700 my-6" {...props} />,
+                                    // Generic elements
                                     span: ({ node, ...props }) => <span {...props} />,
                                     div: ({ node, ...props }) => <div {...props} />
                                 }}
