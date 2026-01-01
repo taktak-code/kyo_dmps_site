@@ -90,7 +90,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                     const mockMarkdown = `
 **<span class="flex items-center gap-2"><span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>競技調整チーム・分析ログ</span>**
 
-- <span class="text-yellow-500 font-black text-lg">01.</span> <div><strong class="text-slate-100 block mb-1">Guide Not Found</strong>まだこのマッチアップのガイドは投稿されていません。</div>
+- <span class="text-sky-400 font-black text-lg">01.</span> <div><strong class="text-slate-100 block mb-1">Guide Not Found</strong>まだこのマッチアップのガイドは投稿されていません。</div>
 `;
                     setInsight(mockMarkdown);
                 }
@@ -99,7 +99,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                 const mockMarkdown = `
 **<span class="flex items-center gap-2"><span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>競技調整チーム・分析ログ</span>**
 
-- <span class="text-yellow-500 font-black text-lg">01.</span> <div><strong class="text-slate-100 block mb-1">Guide Not Found</strong>まだこのマッチアップのガイドは投稿されていません。</div>
+- <span class="text-sky-400 font-black text-lg">01.</span> <div><strong class="text-slate-100 block mb-1">Guide Not Found</strong>まだこのマッチアップのガイドは投稿されていません。</div>
 `;
                 setInsight(mockMarkdown);
             });
@@ -130,12 +130,30 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                 <ChevronLeft size={16} /> Back to Matrix
             </button>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 -mx-2 md:mx-0">
                 {/* Matchup Banner */}
-                <div className="lg:col-span-3 rounded-2xl p-10 flex flex-col md:flex-row items-center justify-around gap-12 text-white shadow-2xl relative overflow-hidden border border-slate-700">
-                    <div className="absolute inset-0 bg-slate-900 opacity-90 z-0"></div>
+                <div className="lg:col-span-3 rounded-2xl p-5 md:p-10 flex flex-col md:flex-row items-center justify-around gap-6 md:gap-12 text-white shadow-2xl relative overflow-hidden border border-slate-700 bg-slate-900">
                     <div className="absolute inset-0 z-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}></div>
 
+                    {/* Mobile Header: Icon - Rate - Icon (Horizontal) */}
+                    <div className="md:hidden relative z-10 w-full flex items-center justify-between px-2">
+                        {/* Player Icon */}
+                        <div className="w-28 h-28 rounded-full border-2 border-slate-600 bg-cover bg-center shadow-lg relative"
+                            style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}>
+                        </div>
+
+                        {/* Rate */}
+                        <div className={`text-5xl font-black ${colorClass} whitespace-nowrap mx-2 drop-shadow-2xl`}>
+                            {displayRate}
+                        </div>
+
+                        {/* Opponent Icon */}
+                        <div className="w-28 h-28 rounded-full border-2 border-slate-600 bg-cover bg-center shadow-lg relative"
+                            style={{ backgroundImage: `url('${getAssetPath(opponent.img)}')` }}>
+                        </div>
+                    </div>
+
+                    {/* Desktop View (Preserved) */}
                     <div className="text-center relative z-10 hidden md:block">
                         <div className="w-28 h-28 rounded-full mx-auto mb-4 flex items-center justify-center shadow-2xl border-4 border-slate-700 bg-cover bg-center"
                             style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}>
@@ -144,11 +162,10 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                         <span className="text-slate-400 text-[10px] font-black tracking-widest uppercase">Player Side</span>
                     </div>
 
-                    <div className="text-center relative z-10 bg-slate-950/50 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
-                        <div className={`text-7xl font-black mb-1 ${colorClass}`}>
+                    <div className="text-center relative z-10 hidden md:block bg-slate-950/50 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
+                        <div className={`text-7xl font-black ${colorClass} whitespace-nowrap`}>
                             {displayRate}
                         </div>
-                        <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Predicted Edge</div>
                     </div>
 
                     <div className="text-center relative z-10 hidden md:block">
@@ -161,15 +178,15 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                 </div>
 
                 {/* Analysis */}
-                <div className="lg:col-span-3 space-y-6">
-                    <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700">
-                        <h3 className="text-lg font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
+                <div className="lg:col-span-3 space-y-4">
+                    <div className="bg-slate-800 rounded-2xl p-5 md:p-6 border border-slate-700">
+                        <h3 className="text-lg font-black mb-4 flex items-center gap-2 uppercase tracking-tight">
                             <span className="text-sky-400">
                                 <Zap size={20} fill="currentColor" />
                             </span>
                             Tactical Insight
                         </h3>
-                        <div className="p-6 bg-slate-900 rounded-xl border border-slate-700 text-sm text-slate-300 leading-relaxed shadow-inner prose prose-invert prose-sm max-w-none">
+                        <div className="text-sm md:text-base text-slate-300 leading-relaxed prose prose-invert prose-sm md:prose-base max-w-none">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 components={{
@@ -181,8 +198,8 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                                     // Paragraphs
                                     p: ({ node, ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
                                     // Lists
-                                    ul: ({ node, ...props }) => <ul className="list-disc list-inside space-y-2 mb-4 text-slate-400" {...props} />,
-                                    ol: ({ node, ...props }) => <ol className="list-decimal list-inside space-y-2 mb-4 text-slate-400" {...props} />,
+                                    ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-4 space-y-2 ml-2" {...props} />,
+                                    ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-4 space-y-2 ml-2" {...props} />,
                                     li: ({ node, ...props }) => <li className="text-slate-300 leading-relaxed" {...props} />,
                                     // Emphasis
                                     strong: ({ node, ...props }) => <strong className="font-bold text-white" {...props} />,
