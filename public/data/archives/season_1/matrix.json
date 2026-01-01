@@ -2,11 +2,6 @@
   "season": "season_1",
   "decks": [
     {
-      "id": "4cキング (S1)",
-      "name": "4cキング (S1)",
-      "img": "https://images.unsplash.com/photo-1635326444826-06c8f8d9e6c5?auto=format&fit=crop&w=400&q=80"
-    },
-    {
       "id": "TestDeck",
       "name": "TestDeck",
       "img": "/data/archives/season_1/decks/20260101191129_TestDeck.png"
@@ -18,16 +13,10 @@
     }
   ],
   "winRates": {
-    "4cキング (S1)": {
-      "TestDeck": "N/A",
-      "青黒ミザリィ": "N/A"
-    },
     "TestDeck": {
-      "4cキング (S1)": "N/A",
       "青黒ミザリィ": "30"
     },
     "青黒ミザリィ": {
-      "4cキング (S1)": "N/A",
       "TestDeck": "70"
     }
   },
