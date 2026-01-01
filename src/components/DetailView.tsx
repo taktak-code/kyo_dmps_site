@@ -209,29 +209,64 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack, s
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 components={{
-                                    // Headings
-                                    h1: ({ node, ...props }) => <h1 className="text-2xl font-black text-white mt-6 mb-4 pb-2 border-b border-slate-700" {...props} />,
-                                    h2: ({ node, ...props }) => <h2 className="text-xl font-black text-white mt-5 mb-3 pb-2 border-b border-slate-700/50" {...props} />,
-                                    h3: ({ node, ...props }) => <h3 className="text-lg font-bold text-slate-100 mt-4 mb-2" {...props} />,
-                                    h4: ({ node, ...props }) => <h4 className="text-base font-bold text-slate-200 mt-3 mb-2" {...props} />,
+                                    // Headings - different left bar colors per level
+                                    h1: ({ node, ...props }) => (
+                                        <h1 className="text-3xl md:text-4xl font-bold text-white mt-10 mb-5 pl-4 border-l-4 border-sky-400" {...props} />
+                                    ),
+                                    h2: ({ node, ...props }) => (
+                                        <h2 className="text-2xl md:text-3xl font-bold text-white mt-8 mb-4 pl-4 border-l-4 border-blue-400" {...props} />
+                                    ),
+                                    h3: ({ node, ...props }) => (
+                                        <h3 className="text-lg md:text-xl font-bold text-white mt-6 mb-3 pl-3 border-l-4 border-indigo-400" {...props} />
+                                    ),
+                                    h4: ({ node, ...props }) => (
+                                        <h4 className="text-base md:text-lg font-semibold text-slate-100 mt-5 mb-2 pl-3 border-l-2 border-violet-400/70" {...props} />
+                                    ),
                                     // Paragraphs
-                                    p: ({ node, ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
-                                    // Lists
-                                    ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-4 space-y-2 ml-2" {...props} />,
-                                    ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-4 space-y-2 ml-2" {...props} />,
-                                    li: ({ node, ...props }) => <li className="text-slate-300 leading-relaxed" {...props} />,
+                                    p: ({ node, ...props }) => <p className="mb-4 leading-relaxed text-slate-300" {...props} />,
+                                    // Lists - subtle blue accents
+                                    ul: ({ node, ...props }) => <ul className="mb-4 space-y-2 ml-4 list-none" {...props} />,
+                                    ol: ({ node, ...props }) => <ol className="mb-4 space-y-2 ml-4 list-decimal list-inside marker:text-sky-400" {...props} />,
+                                    li: ({ node, ...props }) => (
+                                        <li className="text-slate-300 leading-relaxed flex items-start gap-2">
+                                            <span className="w-1.5 h-1.5 bg-sky-400 rounded-full mt-2 flex-shrink-0" />
+                                            <span {...props} />
+                                        </li>
+                                    ),
                                     // Emphasis
                                     strong: ({ node, ...props }) => <strong className="font-bold text-white" {...props} />,
-                                    em: ({ node, ...props }) => <em className="italic text-slate-200" {...props} />,
-                                    // Code
-                                    code: ({ node, ...props }) => <code className="bg-slate-800 text-sky-400 px-1.5 py-0.5 rounded text-xs font-mono" {...props} />,
-                                    pre: ({ node, ...props }) => <pre className="bg-slate-800 p-4 rounded-lg overflow-x-auto mb-4 border border-slate-700" {...props} />,
-                                    // Blockquote
-                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-sky-400 pl-4 py-2 mb-4 bg-slate-800/50 rounded-r-lg italic text-slate-400" {...props} />,
+                                    em: ({ node, ...props }) => <em className="italic text-sky-200" {...props} />,
+                                    // Code - sky accents
+                                    code: ({ node, ...props }) => <code className="bg-slate-800/80 text-sky-400 px-1.5 py-0.5 rounded text-sm font-mono border border-sky-500/20" {...props} />,
+                                    pre: ({ node, ...props }) => <pre className="bg-slate-900 p-4 rounded-xl overflow-x-auto mb-4 border border-sky-500/20 shadow-lg shadow-sky-500/5" {...props} />,
+                                    // Blockquote - prominent blue styling
+                                    blockquote: ({ node, ...props }) => (
+                                        <blockquote className="border-l-4 border-sky-400 pl-4 py-3 my-4 bg-gradient-to-r from-sky-500/10 to-transparent rounded-r-lg text-slate-300" {...props} />
+                                    ),
                                     // Links
-                                    a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 underline" {...props} />,
+                                    a: ({ node, ...props }) => <a className="text-sky-400 hover:text-sky-300 underline decoration-sky-400/50 hover:decoration-sky-300 transition-colors" {...props} />,
+                                    // Tables - blue accents
+                                    table: ({ node, ...props }) => (
+                                        <div className="overflow-x-auto my-4">
+                                            <table className="min-w-full border-collapse rounded-lg overflow-hidden" {...props} />
+                                        </div>
+                                    ),
+                                    thead: ({ node, ...props }) => <thead className="bg-sky-500/20" {...props} />,
+                                    th: ({ node, ...props }) => <th className="px-4 py-3 text-left text-sky-300 font-semibold border-b border-sky-500/30" {...props} />,
+                                    td: ({ node, ...props }) => <td className="px-4 py-3 border-b border-slate-700/50 text-slate-300" {...props} />,
+                                    tr: ({ node, ...props }) => <tr className="hover:bg-sky-500/5 transition-colors" {...props} />,
+                                    // Images - apply getAssetPath and constrain height
+                                    img: ({ node, src, alt, ...props }) => (
+                                        <img
+                                            src={src ? getAssetPath(src) : ''}
+                                            alt={alt || 'image'}
+                                            style={{ maxHeight: '200px', width: 'auto' }}
+                                            className="mx-auto my-4 rounded-lg object-contain border border-sky-500/20 shadow-lg shadow-sky-500/10"
+                                            {...props}
+                                        />
+                                    ),
                                     // Horizontal rule
-                                    hr: ({ node, ...props }) => <hr className="border-slate-700 my-6" {...props} />,
+                                    hr: ({ node, ...props }) => <hr className="border-0 h-px bg-gradient-to-r from-transparent via-sky-500/50 to-transparent my-8" {...props} />,
                                     // Generic elements
                                     span: ({ node, ...props }) => <span {...props} />,
                                     div: ({ node, ...props }) => <div {...props} />

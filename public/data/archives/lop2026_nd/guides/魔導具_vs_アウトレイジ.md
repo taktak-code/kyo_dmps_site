@@ -1,6 +1,6 @@
 ## ロビーと向き合うだけの戦い
 
-![image](imgs/魔導具_vs_アウトレイジ/img_000.png)
+![image](/data/archives/lop2026_nd/guides/imgs/魔導具_vs_アウトレイジ/img_000.png)
 
 基本的にコイツは積極的にシバく。
 
@@ -16,7 +16,7 @@
 
 ### マジでBADな野郎は気にはする、程度でいい
 
-![image](imgs/魔導具_vs_アウトレイジ/img_001.png)
+![image](/data/archives/lop2026_nd/guides/imgs/魔導具_vs_アウトレイジ/img_001.png)
 
 こんなのロビー倒す前に絡むゲームは勝ちようがないので意識は最低限でいい。ロビーを倒す事が最優先、どっちつかずが一番ダメ。
 
