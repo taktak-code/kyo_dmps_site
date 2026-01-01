@@ -109,7 +109,7 @@ Discordで `/submit_guide` コマンドを実行し、Markdownファイル（`.m
             "title": "VS [対面デッキ] 徹底攻略",
             "date": "2025-01-01",
             "category": "GUIDE",
-            "path": "/data/archives/season_1/guides/ファイル名.md",
+            "path": "/data/archives/lop2026_nd/guides/ファイル名.md",
             "summary": "カードに表示される短い要約文",
             "player": "攻めるデッキ名",
             "opponent": "守るデッキ名"
@@ -143,7 +143,7 @@ Discordで `/submit_guide` コマンドを実行し、Markdownファイル（`.m
    {
      "id": "デッキID",
      "name": "デッキ名",
-     "img": "/data/archives/season_1/decks/画像ファイル.jpg"
+     "img": "/data/archives/lop2026_nd/decks/画像ファイル.jpg"
    }
    ```
 
@@ -157,7 +157,7 @@ Discordで `/submit_guide` コマンドを実行し、Markdownファイル（`.m
 
 3. **tierListImage（Tier表画像パス）**:
    ```json
-   "tierListImage": "/data/archives/season_1/tier_list/tier_list_20260101.jpg"
+   "tierListImage": "/data/archives/lop2026_nd/tier_list/tier_list_20260101.jpg"
    ```
 
 ---
@@ -167,7 +167,7 @@ Discordで `/submit_guide` コマンドを実行し、Markdownファイル（`.m
 ```
 public/data/
 ├── archives/
-│   └── season_1/                    # シーズン1のデータ
+│   └── lop2026_nd/                    # シーズン1のデータ
 │       ├── decks/                   # デッキ画像
 │       ├── guides/                  # 攻略記事（.md）
 │       ├── tier_list/               # Tier表画像

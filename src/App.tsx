@@ -12,6 +12,34 @@ function App() {
   const savedScrollY = useRef(0);
   const pendingScrollRestore = useRef(false);
 
+  // Season State
+  const [seasons, setSeasons] = useState<{ id: string; name: string }[]>([]);
+  const [currentSeasonId, setCurrentSeasonId] = useState<string>('');
+  const [loadingSeasons, setLoadingSeasons] = useState(true);
+
+  // Fetch Seasons
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/seasons.json`)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.all) {
+          setSeasons(data.all);
+          // Use current from json, or fallback to first one (which should be current/latest logic ideally, or last one)
+          // Implementation Plan says 'current' field exists.
+          if (data.current) {
+            setCurrentSeasonId(data.current);
+          } else if (data.all.length > 0) {
+            setCurrentSeasonId(data.all[data.all.length - 1].id);
+          }
+        }
+        setLoadingSeasons(false);
+      })
+      .catch(err => {
+        console.warn("Seasons data not found, defaulting to basic mode:", err);
+        setLoadingSeasons(false);
+      });
+  }, []);
+
   // Handle scroll restoration after returning to matrix view
   useEffect(() => {
     if (view === 'matrix' && pendingScrollRestore.current) {
@@ -77,16 +105,27 @@ function App() {
       onClick={handleBackgroundClick}
     >
       <div className="max-w-7xl mx-auto" onClick={handleBackgroundClick}>
-        <Header onLogoClick={view !== 'matrix' ? handleBack : undefined} />
+        <Header
+          onLogoClick={view !== 'matrix' ? handleBack : undefined}
+          seasons={seasons}
+          currentSeasonId={currentSeasonId}
+          onSeasonChange={setCurrentSeasonId}
+          loading={loadingSeasons}
+        />
 
         <div id="content-area">
           {view === 'matrix' ? (
-            <Matrix onCellClick={handleCellClick} onArticleClick={handleArticleClick} />
+            <Matrix
+              onCellClick={handleCellClick}
+              onArticleClick={handleArticleClick}
+              seasonId={currentSeasonId}
+            />
           ) : view === 'detail' && selectedMatchup ? (
             <DetailView
               playerId={selectedMatchup.player}
               opponentId={selectedMatchup.opponent}
               onBack={handleBack}
+              seasonId={currentSeasonId}
             />
           ) : view === 'article' && articleData ? (
             <MarkdownViewer

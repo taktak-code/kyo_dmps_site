@@ -6,16 +6,29 @@ import type { Deck, WinRates } from '../types';
 interface MatrixProps {
     onCellClick: (playerId: string, opponentId: string) => void;
     onArticleClick: (path: string) => void;
+    seasonId?: string;
 }
 
-const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
+const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }) => {
     const [decks, setDecks] = useState<Deck[]>([]);
     const [winRates, setWinRates] = useState<WinRates>({});
     const [tierListImage, setTierListImage] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`${import.meta.env.BASE_URL}data/matrix_latest.json`)
+        // Construct path based on seasonId
+        // If no seasonId, default to matrix_latest.json
+        // If seasonId is present, try public/data/archives/{seasonId}/matrix.json
+        // NOTE: In production, latest and archives/current/matrix.json should be identical.
+        // We use matrix_latest.json as fallback if seasonId is empty.
+
+        let path = `${import.meta.env.BASE_URL}data/matrix_latest.json`;
+        if (seasonId) {
+            path = `${import.meta.env.BASE_URL}data/archives/${seasonId}/matrix.json`;
+        }
+
+        setLoading(true);
+        fetch(path)
             .then(res => res.json())
             .then(data => {
                 if (data.decks) setDecks(data.decks);
@@ -25,9 +38,13 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick }) => {
             })
             .catch(err => {
                 console.error("Failed to fetch matrix data:", err);
+                // If specific season fails, maybe fallback to latest? Or just show empty.
+                // Resetting to empty state
+                setDecks([]);
+                setWinRates({});
                 setLoading(false);
             });
-    }, []);
+    }, [seasonId]);
 
     // Helper to format cell display - returns {text, isMissing}
     const formatRate = (rate: string | number | undefined, isMirror: boolean): { text: string; isMissing: boolean } => {

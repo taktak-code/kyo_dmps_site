@@ -9,17 +9,24 @@ interface DetailViewProps {
     playerId: string;
     opponentId: string;
     onBack: () => void;
+    seasonId?: string;
 }
 
-const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack }) => {
+const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack, seasonId }) => {
     const [insight, setInsight] = useState<string>('');
     const [decks, setDecks] = useState<Deck[]>([]);
     const [winRates, setWinRates] = useState<WinRates>({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let path = `${import.meta.env.BASE_URL}data/matrix_latest.json`;
+        if (seasonId) {
+            path = `${import.meta.env.BASE_URL}data/archives/${seasonId}/matrix.json`;
+        }
+
+        setLoading(true);
         // Fetch Matrix Data
-        fetch(`${import.meta.env.BASE_URL}data/matrix_latest.json`)
+        fetch(path)
             .then(res => res.json())
             .then(data => {
                 if (data.decks) setDecks(data.decks);
@@ -30,7 +37,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                 console.error("Failed to fetch data:", err);
                 setLoading(false);
             });
-    }, []);
+    }, [seasonId]);
 
     // Resolve Decks
     const player = decks.find(d => d.name === playerId || d.id === playerId);
