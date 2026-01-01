@@ -136,20 +136,31 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                     <div className="absolute inset-0 z-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}></div>
 
                     {/* Mobile Header: Icon - Rate - Icon (Horizontal) */}
-                    <div className="md:hidden relative z-10 w-full flex items-center justify-between px-2">
-                        {/* Player Icon */}
-                        <div className="w-28 h-28 rounded-full border-2 border-slate-600 bg-cover bg-center shadow-lg relative"
-                            style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}>
+                    <div className="md:hidden relative w-full h-32 my-4">
+                        {/* Icons Layer: Fixed 15% and 85% positioning */}
+                        <div className="absolute inset-0">
+                            {/* Player Icon: Left 15% */}
+                            <div className="absolute top-1/2 left-[15%] -translate-y-1/2 -translate-x-1/2 z-0">
+                                <div className="w-32 h-32 rounded-full border-4 border-slate-600 bg-cover bg-center shadow-lg"
+                                    style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}>
+                                </div>
+                            </div>
+                            {/* Opponent Icon: Right 15% (Left 85%) */}
+                            <div className="absolute top-1/2 right-[15%] -translate-y-1/2 translate-x-1/2 z-0">
+                                <div className="w-32 h-32 rounded-full border-4 border-slate-600 bg-cover bg-center shadow-lg"
+                                    style={{ backgroundImage: `url('${getAssetPath(opponent.img)}')` }}>
+                                </div>
+                            </div>
                         </div>
 
-                        {/* Rate */}
-                        <div className={`text-5xl font-black ${colorClass} whitespace-nowrap mx-2 drop-shadow-2xl`}>
-                            {displayRate}
-                        </div>
-
-                        {/* Opponent Icon */}
-                        <div className="w-28 h-28 rounded-full border-2 border-slate-600 bg-cover bg-center shadow-lg relative"
-                            style={{ backgroundImage: `url('${getAssetPath(opponent.img)}')` }}>
+                        {/* Rate Layer: Absolute Center Overlay */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+                            <div className={`text-5xl font-black ${colorClass} whitespace-nowrap drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] leading-none text-stroke`}>
+                                {displayRate}
+                            </div>
+                            <div className="text-[10px] font-bold tracking-widest text-slate-400 mt-1 drop-shadow-md bg-slate-900/40 px-2 rounded-full backdrop-blur-sm">
+                                WIN RATE
+                            </div>
                         </div>
                     </div>
 
@@ -166,6 +177,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                         <div className={`text-7xl font-black ${colorClass} whitespace-nowrap`}>
                             {displayRate}
                         </div>
+                        <div className="text-[10px] font-bold tracking-widest text-slate-400 mt-2">WIN RATE</div>
                     </div>
 
                     <div className="text-center relative z-10 hidden md:block">
