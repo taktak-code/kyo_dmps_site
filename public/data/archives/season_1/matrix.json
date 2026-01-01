@@ -2,11 +2,6 @@
   "season": "season_1",
   "decks": [
     {
-      "id": "TestDeck",
-      "name": "TestDeck",
-      "img": "/data/archives/season_1/decks/20260101191129_TestDeck.png"
-    },
-    {
       "id": "青黒ミザリィ",
       "name": "青黒ミザリィ",
       "img": "/data/archives/season_1/decks/20260101193757_青黒ミザリィ.png"
@@ -28,32 +23,22 @@
     }
   ],
   "winRates": {
-    "TestDeck": {
-      "青黒ミザリィ": "30",
-      "魔導具": "N/A",
-      "獰猛シルキード": "N/A",
-      "アウトレイジ": "N/A"
-    },
     "青黒ミザリィ": {
-      "TestDeck": "70",
       "魔導具": "N/A",
       "獰猛シルキード": "N/A",
       "アウトレイジ": "N/A"
     },
     "魔導具": {
-      "TestDeck": "N/A",
       "青黒ミザリィ": "N/A",
       "獰猛シルキード": "N/A",
       "アウトレイジ": "N/A"
     },
     "獰猛シルキード": {
-      "TestDeck": "N/A",
       "青黒ミザリィ": "N/A",
       "魔導具": "N/A",
       "アウトレイジ": "N/A"
     },
     "アウトレイジ": {
-      "TestDeck": "N/A",
       "青黒ミザリィ": "N/A",
       "魔導具": "N/A",
       "獰猛シルキード": "N/A"
