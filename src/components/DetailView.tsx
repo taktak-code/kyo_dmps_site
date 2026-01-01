@@ -62,9 +62,9 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
         // For mirror matchups, show special message
         if (isMirror) {
             const mirrorMarkdown = `
-**<span class="flex items-center gap-2"><span class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>同型戦 (Mirror Match)</span>**
+**<span className="flex items-center gap-2"><span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse"></span>同型戦 (Mirror Match)</span>**
 
-- <span class="text-yellow-500 font-black text-lg">01.</span> <div><strong class="text-slate-100 block mb-1">同型戦について</strong>同じデッキタイプ同士の対戦です。お互いの構築やプレイングの質が勝敗を分けます。</div>
+- <span className="text-sky-400 font-black text-lg">01.</span> <div><strong className="text-slate-100 block mb-1">同型戦について</strong>同じデッキタイプ同士の対戦です。お互いの構築やプレイングの質が勝敗を分けます。</div>
 `;
             setInsight(mirrorMarkdown);
             return;
@@ -164,7 +164,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                 <div className="lg:col-span-3 space-y-6">
                     <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700">
                         <h3 className="text-lg font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
-                            <span className="text-yellow-500">
+                            <span className="text-sky-400">
                                 <Zap size={20} fill="currentColor" />
                             </span>
                             Tactical Insight
@@ -181,17 +181,17 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack })
                                     // Paragraphs
                                     p: ({ node, ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
                                     // Lists
-                                    ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-4 space-y-2 ml-2" {...props} />,
-                                    ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-4 space-y-2 ml-2" {...props} />,
+                                    ul: ({ node, ...props }) => <ul className="list-disc list-inside space-y-2 mb-4 text-slate-400" {...props} />,
+                                    ol: ({ node, ...props }) => <ol className="list-decimal list-inside space-y-2 mb-4 text-slate-400" {...props} />,
                                     li: ({ node, ...props }) => <li className="text-slate-300 leading-relaxed" {...props} />,
                                     // Emphasis
                                     strong: ({ node, ...props }) => <strong className="font-bold text-white" {...props} />,
                                     em: ({ node, ...props }) => <em className="italic text-slate-200" {...props} />,
                                     // Code
-                                    code: ({ node, ...props }) => <code className="bg-slate-800 text-yellow-400 px-1.5 py-0.5 rounded text-xs font-mono" {...props} />,
+                                    code: ({ node, ...props }) => <code className="bg-slate-800 text-sky-400 px-1.5 py-0.5 rounded text-xs font-mono" {...props} />,
                                     pre: ({ node, ...props }) => <pre className="bg-slate-800 p-4 rounded-lg overflow-x-auto mb-4 border border-slate-700" {...props} />,
                                     // Blockquote
-                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-yellow-500 pl-4 py-2 mb-4 bg-slate-800/50 rounded-r-lg italic text-slate-400" {...props} />,
+                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-sky-400 pl-4 py-2 mb-4 bg-slate-800/50 rounded-r-lg italic text-slate-400" {...props} />,
                                     // Links
                                     a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 underline" {...props} />,
                                     // Horizontal rule

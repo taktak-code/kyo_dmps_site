@@ -59,11 +59,11 @@ const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ content, onBack, metada
                         rehypePlugins={[rehypeRaw]}
                         components={{
                             h1: ({ node, ...props }) => <h1 className="text-3xl font-black text-white mt-8 mb-4 border-b border-slate-800 pb-2" {...props} />,
-                            h2: ({ node, ...props }) => <h2 className="text-2xl font-black text-white mt-10 mb-6 flex items-center gap-3 before:content-[''] before:w-1.5 before:h-8 before:bg-yellow-500 before:rounded-full before:shadow-[0_0_10px_rgba(234,179,8,0.5)]" {...props} />,
+                            h2: ({ node, ...props }) => <h2 className="text-2xl font-black text-white mt-10 mb-6 flex items-center gap-3 before:content-[''] before:w-1.5 before:h-8 before:bg-sky-400 before:rounded-full before:shadow-[0_0_10px_rgba(56,189,248,0.5)]" {...props} />,
                             h3: ({ node, ...props }) => <h3 className="text-xl font-bold text-slate-200 mt-8 mb-4 border-l-4 border-blue-500/50 pl-3" {...props} />,
                             p: ({ node, ...props }) => <p className="text-slate-400 leading-relaxed mb-6" {...props} />,
                             ul: ({ node, ...props }) => <ul className="list-none space-y-4 mb-8" {...props} />,
-                            ol: ({ node, ...props }) => <ol className="list-decimal list-inside space-y-4 mb-8 marker:text-yellow-500 marker:font-black marker:text-lg" {...props} />,
+                            ol: ({ node, ...props }) => <ol className="list-decimal list-inside space-y-4 mb-8 marker:text-sky-400 marker:font-black marker:text-lg" {...props} />,
                             li: ({ node, ...props }) => (
                                 <li className="relative pl-4 border-l border-slate-800/50 hover:border-slate-700 transition-colors" {...props} />
                             ),
