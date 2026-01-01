@@ -10,14 +10,25 @@
       "id": "青黒ミザリィ",
       "name": "青黒ミザリィ",
       "img": "/data/archives/season_1/decks/20260101193757_青黒ミザリィ.png"
+    },
+    {
+      "id": "魔導具",
+      "name": "魔導具",
+      "img": "/data/archives/season_1/decks/20260101220750_魔導具.png"
     }
   ],
   "winRates": {
     "TestDeck": {
-      "青黒ミザリィ": "30"
+      "青黒ミザリィ": "30",
+      "魔導具": "N/A"
     },
     "青黒ミザリィ": {
-      "TestDeck": "70"
+      "TestDeck": "70",
+      "魔導具": "N/A"
+    },
+    "魔導具": {
+      "TestDeck": "N/A",
+      "青黒ミザリィ": "N/A"
     }
   },
   "tierListImage": "/data/archives/season_1/tier_list/tier_list_20260101202140.jpg"
