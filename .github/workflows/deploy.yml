@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "data"]
   workflow_dispatch:
 
 permissions:
@@ -18,8 +18,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout master
         uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Fetch data branch
+        run: git fetch origin data
+
+      - name: Merge data files from data branch
+        run: |
+          git checkout origin/data -- public/data/ || echo "No data directory in data branch yet"
 
       - name: Setup Node
         uses: actions/setup-node@v4

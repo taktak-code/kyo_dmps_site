@@ -33,3 +33,6 @@ github_deploy_key*
 *.njsproj
 *.sln
 *.sw?
+
+# Data files (managed in 'data' branch)
+public/data/
