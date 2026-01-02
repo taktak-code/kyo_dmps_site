@@ -4,7 +4,7 @@ import { BookOpen, FileText, ArrowUpRight, Play, Maximize2, X } from 'lucide-rea
 import { getAssetPath } from '../utils';
 
 interface BentoGridProps {
-    onArticleClick: (path: string) => void;
+    onArticleClick: (path: string, metadata?: { title?: string; date?: string; category?: string; thumbnail?: string }) => void;
     tierListImage?: string;
 }
 
@@ -28,7 +28,15 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
     const [isTierModalOpen, setIsTierModalOpen] = useState(false);
 
     // Default fallback article
-    const [latestArticle, setLatestArticle] = useState({
+    const [latestArticle, setLatestArticle] = useState<{
+        title: string;
+        date: string;
+        category: string;
+        path: string;
+        summary: string;
+        player?: string;
+        thumbnail?: string;
+    }>({
         title: "Bot Development: New Features",
         date: "2025-12-29",
         category: "Tech",
@@ -42,15 +50,33 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
         // Fetch Guides JSON for Latest Article
         fetch(`${import.meta.env.BASE_URL}data/guides_latest.json`)
             .then(response => response.json())
-            .then(data => {
+            .then(async data => {
                 if (data.items && data.items.length > 0) {
                     const guide = data.items[0];
+                    let thumbnail: string | undefined;
+
+                    // Try to get player deck image from matrix
+                    if (guide.player) {
+                        try {
+                            const matrixRes = await fetch(`${import.meta.env.BASE_URL}data/matrix_latest.json`);
+                            const matrixData = await matrixRes.json();
+                            const deck = matrixData.decks?.find((d: { id: string; img: string }) => d.id === guide.player);
+                            if (deck?.img) {
+                                thumbnail = deck.img;
+                            }
+                        } catch (e) {
+                            console.log('Could not fetch deck image');
+                        }
+                    }
+
                     setLatestArticle({
                         title: guide.title,
                         date: guide.date,
                         category: guide.category,
                         path: guide.path,
-                        summary: guide.summary
+                        summary: guide.summary,
+                        player: guide.player,
+                        thumbnail
                     });
                 }
             })
@@ -159,23 +185,40 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onArticleClick, tierListImage = '
                 {/* Mobile: Middle Right, Span 1, Height Small (~105px) */}
                 {/* Desktop: Bottom Center, Span 1, Height Normal */}
                 <div
-                    onClick={() => onArticleClick(latestArticle.path)}
+                    onClick={() => onArticleClick(latestArticle.path, {
+                        title: latestArticle.title,
+                        date: latestArticle.date,
+                        category: latestArticle.category,
+                        thumbnail: latestArticle.thumbnail
+                    })}
                     className="group relative col-span-1 md:col-span-1 md:row-span-1 h-[105px] md:h-[180px] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer border border-slate-800 bg-slate-900 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 hover:border-purple-500/40"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-900 to-slate-950"></div>
-                    <div className="relative h-full flex flex-col justify-between p-3 md:p-5">
+                    {/* Background: Player deck image or gradient */}
+                    {latestArticle.thumbnail ? (
+                        <div className="absolute inset-0 z-0">
+                            <img
+                                src={getAssetPath(latestArticle.thumbnail)}
+                                alt={latestArticle.player || 'deck'}
+                                className="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent"></div>
+                        </div>
+                    ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-900 to-slate-950"></div>
+                    )}
+                    <div className="relative z-10 h-full flex flex-col justify-between p-3 md:p-5">
                         <div className="flex justify-between items-start">
-                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] md:text-[9px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-300 border border-purple-500/10">
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] md:text-[9px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-300 border border-purple-500/10 backdrop-blur-sm">
                                 <FileText size={8} className="md:w-[10px] md:h-[10px]" />
                                 {latestArticle.category}
                             </span>
                             <ArrowUpRight size={12} className="text-slate-600 group-hover:text-purple-400 transition-colors md:w-[14px] md:h-[14px]" />
                         </div>
                         <div>
-                            <h3 className="text-xs md:text-lg font-black text-white leading-tight mb-1 md:mb-2 group-hover:text-purple-200 transition-colors line-clamp-2">
+                            <h3 className="text-xs md:text-lg font-black text-white leading-tight mb-1 md:mb-2 group-hover:text-purple-200 transition-colors line-clamp-2 drop-shadow-md">
                                 {latestArticle.title}
                             </h3>
-                            <div className="flex items-center gap-2 text-[8px] md:text-[10px] text-slate-500">
+                            <div className="flex items-center gap-2 text-[8px] md:text-[10px] text-slate-400">
                                 <span>{latestArticle.date}</span>
                             </div>
                         </div>

@@ -28,8 +28,8 @@ const Header: React.FC<HeaderProps> = ({
                     onClick={onLogoClick}
                     className={`transition-opacity ${onLogoClick ? 'cursor-pointer hover:opacity-80' : ''}`}
                 >
-                    <div className="bg-sky-400 text-black font-black px-1.5 py-0.5 rounded-[2px] text-[8px] md:text-[10px] italic w-fit mb-0.5 uppercase leading-none">Kyo-Pre! AI Manager</div>
-                    <h1 className="text-xl md:text-3xl font-black tracking-tighter uppercase leading-none">Kyo Play's <span className="text-sky-400">Portal</span></h1>
+                    <div className="bg-sky-400 text-black font-black px-1.5 py-0.5 rounded-[2px] text-[8px] md:text-[10px] italic w-fit mb-0.5 uppercase leading-none">KPDB</div>
+                    <h1 className="text-xl md:text-3xl font-black tracking-tighter uppercase leading-none">Kyo Play's <span className="text-sky-400">Database</span></h1>
                 </div>
                 <div className="text-right flex flex-col justify-end h-full">
                     <div className="flex items-center justify-end gap-1.5 bg-slate-900 px-2 py-0.5 rounded-full border border-slate-800 mb-0.5 w-fit ml-auto">

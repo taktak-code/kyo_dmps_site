@@ -5,7 +5,7 @@ import type { Deck, WinRates } from '../types';
 
 interface MatrixProps {
     onCellClick: (playerId: string, opponentId: string) => void;
-    onArticleClick: (path: string) => void;
+    onArticleClick: (path: string, metadata?: { title?: string; date?: string; category?: string; thumbnail?: string }) => void;
     seasonId?: string;
 }
 

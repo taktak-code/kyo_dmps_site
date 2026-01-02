@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { ArrowLeft, Calendar, Tag } from 'lucide-react';
+import { getAssetPath } from '../utils';
 
 interface MarkdownViewerProps {
     content: string;
@@ -10,6 +11,7 @@ interface MarkdownViewerProps {
         title?: string;
         date?: string;
         category?: string;
+        thumbnail?: string;
     };
 }
 
@@ -29,24 +31,39 @@ const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ content, onBack, metada
                 <span>BACK TO DASHBOARD</span>
             </button>
 
-            <article className="bg-slate-950 rounded-2xl border border-slate-900 overflow-hidden shadow-2xl">
+            <article className="bg-slate-950 rounded-2xl border border-slate-900 overflow-hidden shadow-2xl relative">
+                {/* Cover Image Background (if thumbnail exists) */}
+                {metadata?.thumbnail && (
+                    <div className="absolute top-0 left-0 right-0 h-96 z-0 overflow-hidden">
+                        <img
+                            src={getAssetPath(metadata.thumbnail)}
+                            alt="Cover"
+                            className="w-full h-full object-cover opacity-60"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-slate-950/80 to-slate-950"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                    </div>
+                )}
+
                 {(metadata?.title || metadata?.date) && (
-                    <div className="border-b border-slate-900 bg-slate-900/30 p-8 pb-6">
+                    <div className="relative z-10 border-b border-slate-900 bg-transparent p-8 pb-6 pt-32">
+
+
                         {metadata.category && (
                             <div className="flex items-center gap-2 mb-4">
-                                <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-widest text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+                                <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-widest text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20 backdrop-blur-md">
                                     <Tag size={10} />
                                     {metadata.category}
                                 </span>
                             </div>
                         )}
                         {metadata.title && (
-                            <h1 className="text-3xl md:text-4xl font-black text-slate-100 mb-4 leading-tight tracking-tight">
+                            <h1 className="text-3xl md:text-5xl font-black text-slate-100 mb-4 leading-tight tracking-tight drop-shadow-xl">
                                 {metadata.title}
                             </h1>
                         )}
                         {metadata.date && (
-                            <div className="flex items-center gap-2 text-sm font-medium text-slate-500">
+                            <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
                                 <Calendar size={14} />
                                 <time>{metadata.date}</time>
                             </div>
@@ -54,7 +71,7 @@ const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ content, onBack, metada
                     </div>
                 )}
 
-                <div className="p-6 md:p-10 prose prose-invert prose-slate max-w-none prose-headings:font-black prose-a:text-blue-400 prose-img:rounded-xl prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800">
+                <div className="relative z-10 bg-slate-950 p-6 md:p-10 prose prose-invert prose-slate max-w-none prose-headings:font-black prose-a:text-blue-400 prose-img:rounded-xl prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800">
                     <ReactMarkdown
                         rehypePlugins={[rehypeRaw]}
                         components={{
@@ -70,6 +87,16 @@ const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ content, onBack, metada
                             strong: ({ node, ...props }) => <strong className="text-slate-100 font-bold bg-slate-900/50 px-1 rounded mx-0.5 border border-slate-800" {...props} />,
                             blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-slate-700 bg-slate-900/30 p-4 rounded-r-lg italic text-slate-400 my-6" {...props} />,
                             code: ({ node, ...props }) => <code className="bg-slate-900 text-blue-300 px-1.5 py-0.5 rounded text-sm font-mono border border-slate-800" {...props} />,
+                            // Images - apply getAssetPath and constrain height
+                            img: ({ node, src, alt, ...props }) => (
+                                <img
+                                    src={src ? getAssetPath(src) : ''}
+                                    alt={alt || 'image'}
+                                    style={{ maxHeight: '200px', width: 'auto' }}
+                                    className="mx-auto my-4 rounded-lg object-contain border border-sky-500/20 shadow-lg shadow-sky-500/10"
+                                    {...props}
+                                />
+                            ),
                         }}
                     >
                         {content}

@@ -62,7 +62,7 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleArticleClick = async (path: string) => {
+  const handleArticleClick = async (path: string, metadata?: { title?: string; date?: string; category?: string; thumbnail?: string }) => {
     try {
       savedScrollY.current = window.scrollY;
       const response = await fetch(`${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`);
@@ -70,9 +70,8 @@ function App() {
       const text = await response.text();
       setArticleData({
         content: text,
-        meta: {
-          // For now, these are placeholder metadata since we don't parse frontmatter yet
-          title: "New Article",
+        meta: metadata || {
+          title: "Article",
           date: new Date().toISOString().split('T')[0],
           category: "Updates"
         }
@@ -101,9 +100,11 @@ function App() {
 
   return (
     <div
-      className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8"
+      className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black text-slate-100 p-4 md:p-8 relative"
       onClick={handleBackgroundClick}
     >
+      {/* Edge Glow Effect */}
+      <div className="absolute inset-0 pointer-events-none z-50 shadow-[inset_0_0_20px_rgba(59,130,246,0.6)] md:shadow-[inset_0_0_40px_rgba(59,130,246,0.5)] rounded-none"></div>
       <div className="max-w-7xl mx-auto" onClick={handleBackgroundClick}>
         <Header
           onLogoClick={view !== 'matrix' ? handleBack : undefined}
