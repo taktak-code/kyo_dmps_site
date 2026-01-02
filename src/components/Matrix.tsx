@@ -110,7 +110,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
                             <tr key={player.id}>
                                 <td className="p-0 md:p-4 border-r border-b border-slate-800 sticky-cell z-20 font-black text-[11px] deck-cell-bg shadow-xl whitespace-nowrap"
                                     style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}>
-                                    <div className="absolute inset-0 bg-slate-900/40 opacity-100 z-0"></div>
+                                    <div className="absolute inset-0 bg-black/30 opacity-100 z-0"></div>
                                     <div className="relative z-10 flex items-center justify-start gap-2 md:gap-3 h-full min-h-[56px] md:h-auto px-2 md:px-0 py-2 md:py-0">
                                         <span className="uppercase text-white drop-shadow-md tracking-tight text-[9px] md:text-[11px] leading-tight break-words w-full">{player.name}</span>
                                     </div>

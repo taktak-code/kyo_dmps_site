@@ -104,8 +104,8 @@ function App() {
       onClick={handleBackgroundClick}
     >
       {/* Edge Glow Effect */}
-      <div className="absolute inset-0 pointer-events-none z-50 shadow-[inset_0_0_20px_rgba(59,130,246,0.6)] md:shadow-[inset_0_0_40px_rgba(59,130,246,0.5)] rounded-none"></div>
-      <div className="max-w-7xl mx-auto" onClick={handleBackgroundClick}>
+      <div className="absolute inset-0 pointer-events-none z-0 shadow-[inset_0_0_20px_rgba(59,130,246,0.6)] md:shadow-[inset_0_0_40px_rgba(59,130,246,0.5)] rounded-none"></div>
+      <div className="max-w-7xl mx-auto relative z-10" onClick={handleBackgroundClick}>
         <Header
           onLogoClick={view !== 'matrix' ? handleBack : undefined}
           seasons={seasons}
