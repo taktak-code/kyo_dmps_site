@@ -17,25 +17,26 @@ interface Guide {
 
 // Document icon component
 const DocumentIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg 
-        className={className} 
-        width="12" 
-        height="12" 
-        viewBox="0 0 24 24" 
-        fill="none" 
+    <svg
+        className={className}
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path 
-            d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
+        <path
+            d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
             strokeLinejoin="round"
+            fill="currentColor"
+            fillOpacity="0.3"
         />
-        <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -50,32 +51,38 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
         // Construct path based on seasonId
         let matrixPath = `${import.meta.env.BASE_URL}data/matrix_latest.json`;
         let guidesPath = `${import.meta.env.BASE_URL}data/guides_latest.json`;
-        
+
         if (seasonId) {
             matrixPath = `${import.meta.env.BASE_URL}data/archives/${seasonId}/matrix.json`;
             guidesPath = `${import.meta.env.BASE_URL}data/archives/${seasonId}/guides.json`;
         }
 
         setLoading(true);
-        
+
         // Fetch both matrix and guides data
         Promise.all([
             fetch(matrixPath).then(res => res.json()).catch(() => ({})),
-            fetch(guidesPath).then(res => res.json()).catch(() => ({ guides: [] }))
+            fetch(guidesPath).then(res => res.json()).catch(() => ({ items: [] }))
         ]).then(([matrixData, guidesData]) => {
             if (matrixData.decks) setDecks(matrixData.decks);
             if (matrixData.winRates) setWinRates(matrixData.winRates);
             if (matrixData.tierListImage) setTierListImage(matrixData.tierListImage);
-            
+
             // Create a set of "player|opponent" keys for quick lookup
-            if (guidesData.guides && Array.isArray(guidesData.guides)) {
+            // Handle both 'items' (guides_latest.json) and 'guides' (archives) formats
+            const guideItems = guidesData.items || guidesData.guides || [];
+            if (Array.isArray(guideItems)) {
                 const guideSet = new Set<string>();
-                guidesData.guides.forEach((guide: Guide) => {
-                    guideSet.add(`${guide.player}|${guide.opponent}`);
+                guideItems.forEach((guide: Guide) => {
+                    if (guide.player && guide.opponent) {
+                        guideSet.add(`${guide.player}|${guide.opponent}`);
+                        console.log(`Guide found: ${guide.player} vs ${guide.opponent}`);
+                    }
                 });
                 setGuides(guideSet);
+                console.log(`Total guides loaded: ${guideSet.size}`);
             }
-            
+
             setLoading(false);
         }).catch(err => {
             console.error("Failed to fetch data:", err);
@@ -87,8 +94,10 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
 
     // Check if a guide exists for a matchup
     const hasGuide = (player: string, opponent: string): boolean => {
-        return guides.has(`${player}|${opponent}`);
+        const exists = guides.has(`${player}|${opponent}`);
+        return exists;
     };
+
 
     // Helper to format cell display - returns {text, isMissing}
     const formatRate = (rate: string | number | undefined, isMirror: boolean): { text: string; isMissing: boolean } => {
@@ -174,8 +183,8 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
                                                 {displayRate}
                                                 {/* Guide indicator icon */}
                                                 {guideExists && (
-                                                    <div className="absolute bottom-1 right-1">
-                                                        <DocumentIcon className="text-white/70 drop-shadow-md" />
+                                                    <div className="absolute bottom-0.5 right-0.5 bg-slate-900/80 rounded p-0.5 shadow-lg">
+                                                        <DocumentIcon className="text-yellow-400 drop-shadow-lg" />
                                                     </div>
                                                 )}
                                             </div>
