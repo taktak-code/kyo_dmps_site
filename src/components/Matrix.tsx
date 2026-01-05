@@ -182,7 +182,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
                                                 {/* Guide indicator icon */}
                                                 {guideExists && (
                                                     <div className="absolute bottom-0.5 right-0.5">
-                                                        <DocumentIcon className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]" />
+                                                        <DocumentIcon className="text-white/60 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
                                                     </div>
                                                 )}
                                             </div>
