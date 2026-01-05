@@ -9,42 +9,86 @@ interface MatrixProps {
     seasonId?: string;
 }
 
+interface Guide {
+    player: string;
+    opponent: string;
+    path: string;
+}
+
+// Document icon component
+const DocumentIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg 
+        className={className} 
+        width="12" 
+        height="12" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path 
+            d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+        />
+        <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+);
+
 const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }) => {
     const [decks, setDecks] = useState<Deck[]>([]);
     const [winRates, setWinRates] = useState<WinRates>({});
     const [tierListImage, setTierListImage] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState(true);
+    const [guides, setGuides] = useState<Set<string>>(new Set());
 
     useEffect(() => {
         // Construct path based on seasonId
-        // If no seasonId, default to matrix_latest.json
-        // If seasonId is present, try public/data/archives/{seasonId}/matrix.json
-        // NOTE: In production, latest and archives/current/matrix.json should be identical.
-        // We use matrix_latest.json as fallback if seasonId is empty.
-
-        let path = `${import.meta.env.BASE_URL}data/matrix_latest.json`;
+        let matrixPath = `${import.meta.env.BASE_URL}data/matrix_latest.json`;
+        let guidesPath = `${import.meta.env.BASE_URL}data/guides_latest.json`;
+        
         if (seasonId) {
-            path = `${import.meta.env.BASE_URL}data/archives/${seasonId}/matrix.json`;
+            matrixPath = `${import.meta.env.BASE_URL}data/archives/${seasonId}/matrix.json`;
+            guidesPath = `${import.meta.env.BASE_URL}data/archives/${seasonId}/guides.json`;
         }
 
         setLoading(true);
-        fetch(path)
-            .then(res => res.json())
-            .then(data => {
-                if (data.decks) setDecks(data.decks);
-                if (data.winRates) setWinRates(data.winRates);
-                if (data.tierListImage) setTierListImage(data.tierListImage);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("Failed to fetch matrix data:", err);
-                // If specific season fails, maybe fallback to latest? Or just show empty.
-                // Resetting to empty state
-                setDecks([]);
-                setWinRates({});
-                setLoading(false);
-            });
+        
+        // Fetch both matrix and guides data
+        Promise.all([
+            fetch(matrixPath).then(res => res.json()).catch(() => ({})),
+            fetch(guidesPath).then(res => res.json()).catch(() => ({ guides: [] }))
+        ]).then(([matrixData, guidesData]) => {
+            if (matrixData.decks) setDecks(matrixData.decks);
+            if (matrixData.winRates) setWinRates(matrixData.winRates);
+            if (matrixData.tierListImage) setTierListImage(matrixData.tierListImage);
+            
+            // Create a set of "player|opponent" keys for quick lookup
+            if (guidesData.guides && Array.isArray(guidesData.guides)) {
+                const guideSet = new Set<string>();
+                guidesData.guides.forEach((guide: Guide) => {
+                    guideSet.add(`${guide.player}|${guide.opponent}`);
+                });
+                setGuides(guideSet);
+            }
+            
+            setLoading(false);
+        }).catch(err => {
+            console.error("Failed to fetch data:", err);
+            setDecks([]);
+            setWinRates({});
+            setLoading(false);
+        });
     }, [seasonId]);
+
+    // Check if a guide exists for a matchup
+    const hasGuide = (player: string, opponent: string): boolean => {
+        return guides.has(`${player}|${opponent}`);
+    };
 
     // Helper to format cell display - returns {text, isMissing}
     const formatRate = (rate: string | number | undefined, isMirror: boolean): { text: string; isMissing: boolean } => {
@@ -120,6 +164,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
                                     const isMirror = player.id === opponent.id;
                                     const { text: displayRate, isMissing } = formatRate(rate, isMirror);
                                     const cellColor = isMirror ? getMirrorColor() : getCellColor(rate);
+                                    const guideExists = hasGuide(player.name, opponent.name);
 
                                     return (
                                         <td key={opponent.id} className="p-0 border-b border-slate-800/50 border-r border-slate-800/20 box-border relative h-px"
@@ -127,6 +172,12 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
                                             <div className={`absolute inset-0 flex items-center justify-center font-black text-xs cursor-pointer hover:scale-105 hover:z-20 transition-transform duration-200 ${isMissing ? 'text-slate-600' : ''}`}
                                                 style={{ backgroundColor: cellColor }}>
                                                 {displayRate}
+                                                {/* Guide indicator icon */}
+                                                {guideExists && (
+                                                    <div className="absolute bottom-1 right-1">
+                                                        <DocumentIcon className="text-white/70 drop-shadow-md" />
+                                                    </div>
+                                                )}
                                             </div>
                                         </td>
                                     );
