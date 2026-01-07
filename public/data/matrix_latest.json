@@ -5,61 +5,61 @@
       "id": "魔導具",
       "name": "魔導具",
       "img": "/data/archives/lop2026_nd/decks/20260101220750_魔導具.png",
-      "discordId": "1458125208530583675"
+      "discordId": ""
     },
     {
       "id": "獰猛シルキード",
       "name": "獰猛シルキード",
       "img": "/data/archives/lop2026_nd/decks/20260101220958_獰猛シルキード.png",
-      "discordId": "1458125250800779445"
+      "discordId": ""
     },
     {
       "id": "アウトレイジ",
       "name": "アウトレイジ",
       "img": "/data/archives/lop2026_nd/decks/20260101221144_アウトレイジ.png",
-      "discordId": "1458125343625056440"
+      "discordId": ""
     },
     {
       "id": "白零サバキ",
       "name": "白零サバキ",
       "img": "/data/archives/lop2026_nd/decks/20260101223147_白零サバキ.png",
-      "discordId": "1458125398796800031"
+      "discordId": ""
     },
     {
       "id": "青白ラプチャー",
       "name": "青白ラプチャー",
       "img": "/data/archives/lop2026_nd/decks/20260101223431_青白ラプチャー.png",
-      "discordId": "1458125461606629406"
+      "discordId": ""
     },
     {
       "id": "赤単ブランド",
       "name": "赤単ブランド",
       "img": "/data/archives/lop2026_nd/decks/20260101223626_赤単ブランド.png",
-      "discordId": "1458125502459154596"
+      "discordId": ""
     },
     {
       "id": "トリガードルガン",
       "name": "トリガードルガン",
       "img": "/data/archives/lop2026_nd/decks/20260101224427_トリガードルガン.png",
-      "discordId": "1458125568984744037"
+      "discordId": ""
     },
     {
       "id": "青白MDW",
       "name": "青白MDW",
       "img": "/data/archives/lop2026_nd/decks/20260101224753_青白MDW.png",
-      "discordId": "1458125636580278313"
+      "discordId": ""
     },
     {
       "id": "青緑ナハト",
       "name": "青緑ナハト",
       "img": "/data/archives/lop2026_nd/decks/20260105110026_青緑ナハト.png",
-      "discordId": "1458125733959303188"
+      "discordId": ""
     },
     {
       "id": "赤ジョーカーズ",
       "name": "赤ジョーカーズ",
       "img": "/data/archives/lop2026_nd/decks/20260107035239_赤ジョーカーズ.png",
-      "discordId": "1458125669027549275"
+      "discordId": ""
     }
   ],
   "winRates": {
@@ -72,7 +72,7 @@
       "トリガードルガン": "60",
       "青白MDW": "40",
       "青緑ナハト": "70",
-      "赤ジョーカーズ": "N/A"
+      "赤ジョーカーズ": "70"
     },
     "獰猛シルキード": {
       "魔導具": "40",
@@ -163,7 +163,7 @@
       "赤ジョーカーズ": "N/A"
     },
     "赤ジョーカーズ": {
-      "魔導具": "N/A",
+      "魔導具": "30",
       "獰猛シルキード": "N/A",
       "アウトレイジ": "N/A",
       "白零サバキ": "N/A",
