@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "【魔導具】vs. 魔導具 プレイングガイド",
+      "date": "2026-01-09",
+      "category": "GUIDE",
+      "path": "/data/archives/lop2026_nd/guides/魔導具_vs_魔導具.md",
+      "summary": "Tactical insight for 魔導具 against 魔導具.",
+      "player": "魔導具",
+      "opponent": "魔導具"
+    },
+    {
       "title": "【魔導具】vs. 獰猛シルキード プレイングガイド",
       "date": "2026-01-06",
       "category": "GUIDE",
