@@ -66,18 +66,7 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack, s
     useEffect(() => {
         if (!player || !opponent) return;
 
-        // For mirror matchups, show special message
-        if (isMirror) {
-            const mirrorMarkdown = `
-**<span className="flex items-center gap-2"><span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse"></span>同型戦 (Mirror Match)</span>**
-
-- <span className="text-sky-400 font-black text-lg">01.</span> <div><strong className="text-slate-100 block mb-1">同型戦について</strong>同じデッキタイプ同士の対戦です。お互いの構築やプレイングの質が勝敗を分けます。</div>
-`;
-            setInsight(mirrorMarkdown);
-            return;
-        }
-
-        // Try to fetch guide from json
+        // Try to fetch guide from json (even for mirror matchups)
         fetch(`${import.meta.env.BASE_URL}data/guides_latest.json`)
             .then(res => res.json())
             .then(async (data) => {
@@ -93,6 +82,14 @@ const DetailView: React.FC<DetailViewProps> = ({ playerId, opponentId, onBack, s
                     } catch (e) {
                         setInsight("Failed to load guide content.");
                     }
+                } else if (isMirror) {
+                    // No guide found for mirror matchup - show default mirror message
+                    const mirrorMarkdown = `
+**<span className="flex items-center gap-2"><span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse"></span>同型戦 (Mirror Match)</span>**
+
+- <span className="text-sky-400 font-black text-lg">01.</span> <div><strong className="text-slate-100 block mb-1">同型戦について</strong>同じデッキタイプ同士の対戦です。お互いの構築やプレイングの質が勝敗を分けます。</div>
+`;
+                    setInsight(mirrorMarkdown);
                 } else {
                     const mockMarkdown = `
 **<span class="flex items-center gap-2"><span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>競技調整チーム・分析ログ</span>**
