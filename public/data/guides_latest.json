@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "【トリガードルガン】vs. 魔導具 プレイングガイド",
+      "date": "2026-01-12",
+      "category": "GUIDE",
+      "path": "/data/archives/lop2026_nd/guides/トリガードルガン_vs_魔導具.md",
+      "summary": "Tactical insight for トリガードルガン against 魔導具.",
+      "player": "トリガードルガン",
+      "opponent": "魔導具"
+    },
+    {
       "title": "【魔導具】vs. 魔導具 プレイングガイド",
       "date": "2026-01-09",
       "category": "GUIDE",
