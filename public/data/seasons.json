@@ -1,9 +1,13 @@
 {
-    "current": "lop2026_nd",
-    "all": [
-        {
-            "id": "lop2026_nd",
-            "name": "LoP2026 (ND)"
-        }
-    ]
+  "current": "lop2026_nd",
+  "all": [
+    {
+      "id": "lop2026_nd",
+      "name": "LoP2026 (ND)"
+    },
+    {
+      "id": "dmpp34_nd",
+      "name": "[ND] DMPP-34 「轟破と極弾 -TWINPACT GO FIGHT!!-」"
+    }
+  ]
 }
