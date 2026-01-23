@@ -2,6 +2,12 @@
   "season": "dmpp34_nd",
   "decks": [
     {
+      "id": "ジョラゴン",
+      "name": "ジョラゴン",
+      "img": "/data/archives/dmpp34_nd/decks/20260123025324_ジョラゴン.png",
+      "discordId": ""
+    },
+    {
       "id": "魔導具",
       "name": "魔導具",
       "img": "/data/archives/dmpp34_nd/decks/20260101220750_魔導具.png",
@@ -66,12 +72,6 @@
       "name": "青白メタリカ",
       "img": "/data/archives/dmpp34_nd/decks/20260116132444_青白メタリカ.png",
       "discordId": "1461717517910282405"
-    },
-    {
-      "id": "ジョラゴン",
-      "name": "ジョラゴン",
-      "img": "/data/archives/dmpp34_nd/decks/20260123025324_ジョラゴン.png",
-      "discordId": ""
     }
   ],
   "winRates": {
