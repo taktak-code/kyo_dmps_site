@@ -34,7 +34,7 @@
       "name": "アウトレイジ",
       "img": "/data/archives/dmpp34_nd/decks/20260101221144_アウトレイジ.png",
       "discordId": "1458125343625056440",
-      "visible": false
+      "visible": true
     },
     {
       "id": "青白メタリカ",
@@ -48,7 +48,7 @@
       "name": "白零サバキ",
       "img": "/data/archives/dmpp34_nd/decks/20260101223147_白零サバキ.png",
       "discordId": "1458125398796800031",
-      "visible": false
+      "visible": true
     },
     {
       "id": "青白ラプチャー",
@@ -76,7 +76,7 @@
       "name": "赤ジョーカーズ",
       "img": "/data/archives/dmpp34_nd/decks/20260107035239_赤ジョーカーズ.png",
       "discordId": "1458125669027549275",
-      "visible": false
+      "visible": true
     },
     {
       "id": "獰猛シルキード",
