@@ -2,10 +2,17 @@
   "season": "dmpp34_nd",
   "decks": [
     {
-      "id": "ジョラゴン",
-      "name": "ジョラゴン",
-      "img": "/data/archives/dmpp34_nd/decks/20260123025324_ジョラゴン.png",
-      "discordId": "1464254655834882181",
+      "id": "シータ覇道",
+      "name": "シータ覇道",
+      "img": "/data/archives/dmpp34_nd/decks/20260127143435_シータ覇道.png",
+      "discordId": "",
+      "visible": true
+    },
+    {
+      "id": "赤青覇道",
+      "name": "赤青覇道",
+      "img": "/data/archives/dmpp34_nd/decks/20260127143518_赤青覇道.png",
+      "discordId": "",
       "visible": true
     },
     {
@@ -23,18 +30,18 @@
       "visible": true
     },
     {
+      "id": "ジョラゴン",
+      "name": "ジョラゴン",
+      "img": "/data/archives/dmpp34_nd/decks/20260123025324_ジョラゴン.png",
+      "discordId": "1464254655834882181",
+      "visible": true
+    },
+    {
       "id": "赤単ブランド",
       "name": "赤単ブランド",
       "img": "/data/archives/dmpp34_nd/decks/20260101223626_赤単ブランド.png",
       "discordId": "1458125502459154596",
       "visible": true
-    },
-    {
-      "id": "アウトレイジ",
-      "name": "アウトレイジ",
-      "img": "/data/archives/dmpp34_nd/decks/20260101221144_アウトレイジ.png",
-      "discordId": "1458125343625056440",
-      "visible": false
     },
     {
       "id": "青白メタリカ",
@@ -44,17 +51,17 @@
       "visible": true
     },
     {
-      "id": "白零サバキ",
-      "name": "白零サバキ",
-      "img": "/data/archives/dmpp34_nd/decks/20260101223147_白零サバキ.png",
-      "discordId": "1458125398796800031",
-      "visible": false
-    },
-    {
       "id": "青白ラプチャー",
       "name": "青白ラプチャー",
       "img": "/data/archives/dmpp34_nd/decks/20260101223431_青白ラプチャー.png",
       "discordId": "1458125461606629406",
+      "visible": true
+    },
+    {
+      "id": "青白MDW",
+      "name": "青白MDW",
+      "img": "/data/archives/dmpp34_nd/decks/20260101224753_青白MDW.png",
+      "discordId": "1458125636580278313",
       "visible": true
     },
     {
@@ -65,11 +72,18 @@
       "visible": true
     },
     {
-      "id": "青白MDW",
-      "name": "青白MDW",
-      "img": "/data/archives/dmpp34_nd/decks/20260101224753_青白MDW.png",
-      "discordId": "1458125636580278313",
-      "visible": true
+      "id": "アウトレイジ",
+      "name": "アウトレイジ",
+      "img": "/data/archives/dmpp34_nd/decks/20260101221144_アウトレイジ.png",
+      "discordId": "1458125343625056440",
+      "visible": false
+    },
+    {
+      "id": "白零サバキ",
+      "name": "白零サバキ",
+      "img": "/data/archives/dmpp34_nd/decks/20260101223147_白零サバキ.png",
+      "discordId": "1458125398796800031",
+      "visible": false
     },
     {
       "id": "赤ジョーカーズ",
@@ -84,19 +98,6 @@
       "img": "/data/archives/dmpp34_nd/decks/20260101220958_獰猛シルキード.png",
       "discordId": "1458125250800779445",
       "visible": false
-    },
-    {
-      "id": "シータ覇道",
-      "name": "シータ覇道",
-      "img": "/data/archives/dmpp34_nd/decks/20260127143435_シータ覇道.png",
-      "discordId": "",
-      "visible": true
-    },
-    {
-      "id": "赤青覇道",
-      "name": "赤青覇道",
-      "img": "/data/archives/dmpp34_nd/decks/20260127143518_赤青覇道.png",
-      "discordId": ""
     }
   ],
   "winRates": {
