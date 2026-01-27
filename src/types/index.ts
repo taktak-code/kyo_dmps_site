@@ -9,6 +9,7 @@ export interface Deck {
     id: string;
     name: string;
     img: string;
+    visible?: boolean;  // 省略時はtrue扱い
 }
 
 export interface WinRates {

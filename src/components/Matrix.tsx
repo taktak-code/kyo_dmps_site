@@ -62,7 +62,13 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
             fetch(matrixPath).then(res => res.json()).catch(() => ({})),
             fetch(guidesPath).then(res => res.json()).catch(() => ({ items: [] }))
         ]).then(([matrixData, guidesData]) => {
-            if (matrixData.decks) setDecks(matrixData.decks);
+            if (matrixData.decks) {
+                // visible !== false のデッキのみ表示（未定義はtrue扱い）
+                const visibleDecks = matrixData.decks.filter(
+                    (deck: Deck) => deck.visible !== false
+                );
+                setDecks(visibleDecks);
+            }
             if (matrixData.winRates) setWinRates(matrixData.winRates);
             if (matrixData.tierListImage) setTierListImage(matrixData.tierListImage);
 
