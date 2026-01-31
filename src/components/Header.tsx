@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({
                         value={currentSeasonId}
                         onChange={(e) => onSeasonChange?.(e.target.value)}
                         disabled={loading || seasons.length === 0}
-                        className="appearance-none bg-slate-900 border border-slate-700 text-white text-xs font-bold uppercase tracking-wider py-1.5 pl-3 pr-8 rounded-lg outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-colors disabled:opacity-50"
+                        className="appearance-none bg-slate-900 border border-slate-700 text-white text-xs font-bold uppercase tracking-wider py-1.5 pl-3 pr-8 rounded-lg outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-colors disabled:opacity-50 w-full md:max-w-[40vw] truncate"
                     >
                         {seasons.map(season => (
                             <option key={season.id} value={season.id}>
