@@ -2,13 +2,6 @@
   "season": "dmpp34_nd",
   "decks": [
     {
-      "id": "シータ覇道",
-      "name": "シータ覇道",
-      "img": "/data/archives/dmpp34_nd/decks/20260127143435_シータ覇道.png",
-      "discordId": "1464984012165611693",
-      "visible": true
-    },
-    {
       "id": "魔導具",
       "name": "魔導具",
       "img": "/data/archives/dmpp34_nd/decks/20260101220750_魔導具.png",
@@ -30,6 +23,20 @@
       "visible": true
     },
     {
+      "id": "ティガウォック",
+      "name": "ティガウォック",
+      "img": "/data/archives/dmpp34_nd/decks/20260130183418_ティガウォック.png",
+      "discordId": "1466445555785007225",
+      "visible": false
+    },
+    {
+      "id": "赤白アポロ",
+      "name": "赤白アポロ",
+      "img": "/data/archives/dmpp34_nd/decks/20260207131154_赤白アポロ.png",
+      "discordId": "",
+      "visible": true
+    },
+    {
       "id": "青白メタリカ",
       "name": "青白メタリカ",
       "img": "/data/archives/dmpp34_nd/decks/20260116132444_青白メタリカ.png",
@@ -41,6 +48,13 @@
       "name": "青白ラプチャー",
       "img": "/data/archives/dmpp34_nd/decks/20260101223431_青白ラプチャー.png",
       "discordId": "1458125461606629406",
+      "visible": true
+    },
+    {
+      "id": "シータ覇道",
+      "name": "シータ覇道",
+      "img": "/data/archives/dmpp34_nd/decks/20260127143435_シータ覇道.png",
+      "discordId": "1464984012165611693",
       "visible": true
     },
     {
@@ -69,20 +83,6 @@
       "name": "白単メタリカ",
       "img": "/data/archives/dmpp34_nd/decks/20260128050733_白単メタリカ.png",
       "discordId": "1465935681699315753",
-      "visible": true
-    },
-    {
-      "id": "ティガウォック",
-      "name": "ティガウォック",
-      "img": "/data/archives/dmpp34_nd/decks/20260130183418_ティガウォック.png",
-      "discordId": "1466445555785007225",
-      "visible": false
-    },
-    {
-      "id": "赤白アポロ",
-      "name": "赤白アポロ",
-      "img": "/data/archives/dmpp34_nd/decks/20260207131154_赤白アポロ.png",
-      "discordId": "",
       "visible": true
     }
   ],
