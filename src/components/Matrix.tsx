@@ -147,7 +147,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
                 <table className="w-full border-separate border-spacing-0">
                     <thead>
                         <tr className="bg-slate-900">
-                            <th className="p-0 md:p-4 border-b border-r border-slate-800 sticky-cell z-30 bg-slate-900 text-[10px] text-slate-500 font-black text-left shadow-xl whitespace-nowrap w-auto">
+                            <th className="p-0 md:p-4 border-b border-r border-slate-800 sticky-cell z-50 bg-slate-900 text-[10px] text-slate-500 font-black text-left shadow-xl whitespace-nowrap w-auto">
                                 <div className="h-full flex items-center px-2 md:px-0">
                                     <span>↓PLAYER</span>
                                 </div>
@@ -165,7 +165,7 @@ const Matrix: React.FC<MatrixProps> = ({ onCellClick, onArticleClick, seasonId }
                     <tbody>
                         {decks.map(player => (
                             <tr key={player.id}>
-                                <td className="p-0 md:p-4 border-r border-b border-slate-800 sticky-cell z-20 font-black text-[11px] deck-cell-bg shadow-xl whitespace-nowrap"
+                                <td className="p-0 md:p-4 border-r border-b border-slate-800 sticky-cell z-40 font-black text-[11px] deck-cell-bg shadow-xl whitespace-nowrap"
                                     style={{ backgroundImage: `url('${getAssetPath(player.img)}')` }}>
                                     <div className="absolute inset-0 bg-black/30 opacity-100 z-0"></div>
                                     <div className="relative z-10 flex items-center justify-center gap-1 md:gap-2 h-full min-h-[56px] md:h-auto px-1 md:px-0 py-1 md:py-0">
