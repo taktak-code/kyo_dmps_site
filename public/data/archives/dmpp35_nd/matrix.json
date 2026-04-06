@@ -1,16 +1,6 @@
 {
   "season": "dmpp35_nd",
-  "decks": [
-    {
-      "id": "アウトレイジ",
-      "name": "アウトレイジ",
-      "img": "/data/archives/dmpp35_nd/decks/20260101221144_アウトレイジ.png",
-      "discordId": "1458125343625056440",
-      "visible": true
-    }
-  ],
-  "winRates": {
-    "アウトレイジ": {}
-  },
+  "decks": [],
+  "winRates": {},
   "tierListImage": "/data/archives/dmpp35_nd/tier_list/tier_list_20260324235638.jpg"
 }
