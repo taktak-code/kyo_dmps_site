@@ -2,13 +2,6 @@
   "season": "dmpp35_nd",
   "decks": [
     {
-      "id": "ティガウォック",
-      "name": "ティガウォック",
-      "img": "/data/archives/dmpp35_nd/decks/20260130183418_ティガウォック.png",
-      "discordId": "1466445555785007225",
-      "visible": true
-    },
-    {
       "id": "アウトレイジ",
       "name": "アウトレイジ",
       "img": "/data/archives/dmpp35_nd/decks/20260101221144_アウトレイジ.png",
@@ -17,12 +10,7 @@
     }
   ],
   "winRates": {
-    "アウトレイジ": {
-      "ティガウォック": "30"
-    },
-    "ティガウォック": {
-      "アウトレイジ": "70"
-    }
+    "アウトレイジ": {}
   },
   "tierListImage": "/data/archives/dmpp35_nd/tier_list/tier_list_20260324235638.jpg"
 }
