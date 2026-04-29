@@ -2,6 +2,13 @@
   "season": "dmpp35_nd",
   "decks": [
     {
+      "id": "黒魔導具",
+      "name": "黒魔導具",
+      "img": "/data/archives/dmpp35_nd/decks/20260407011530_黒魔導具.png",
+      "discordId": "",
+      "visible": true
+    },
+    {
       "id": "赤単轟轟轟",
       "name": "赤単轟轟轟",
       "img": "/data/archives/dmpp35_nd/decks/20260407010845_赤単轟轟轟.png",
@@ -47,13 +54,6 @@
       "id": "アナカラーQQQX",
       "name": "アナカラーQQQX",
       "img": "/data/archives/dmpp35_nd/decks/20260407011231_アナカラーQQQX.png",
-      "discordId": "",
-      "visible": true
-    },
-    {
-      "id": "黒魔導具",
-      "name": "黒魔導具",
-      "img": "/data/archives/dmpp35_nd/decks/20260407011530_黒魔導具.png",
       "discordId": "",
       "visible": true
     },
