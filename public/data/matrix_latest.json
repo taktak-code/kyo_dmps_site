@@ -37,6 +37,12 @@
       "visible": true
     },
     {
+      "id": "ラッカ覇道",
+      "name": "ラッカ覇道",
+      "img": "/data/archives/dmpp35_nd/decks/20260511001547_ラッカ覇道.png",
+      "discordId": ""
+    },
+    {
       "id": "ゲイルヴェスパー",
       "name": "ゲイルヴェスパー",
       "img": "/data/archives/dmpp35_nd/decks/20260407011020_ゲイルヴェスパー.png",
@@ -63,12 +69,6 @@
       "img": "/data/archives/dmpp35_nd/decks/20260407011534_トリーヴァ轟破天.png",
       "discordId": "",
       "visible": true
-    },
-    {
-      "id": "ラッカ覇道",
-      "name": "ラッカ覇道",
-      "img": "/data/archives/dmpp35_nd/decks/20260511001547_ラッカ覇道.png",
-      "discordId": ""
     }
   ],
   "winRates": {
