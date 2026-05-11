@@ -9,6 +9,13 @@
       "visible": true
     },
     {
+      "id": "青白チェンジザ",
+      "name": "青白チェンジザ",
+      "img": "/data/archives/dmpp35_nd/decks/20260407011107_青白チェンジザ.png",
+      "discordId": "1487440511340904548",
+      "visible": true
+    },
+    {
       "id": "赤単轟轟轟",
       "name": "赤単轟轟轟",
       "img": "/data/archives/dmpp35_nd/decks/20260407010845_赤単轟轟轟.png",
@@ -23,13 +30,6 @@
       "visible": true
     },
     {
-      "id": "ゲイルヴェスパー",
-      "name": "ゲイルヴェスパー",
-      "img": "/data/archives/dmpp35_nd/decks/20260407011020_ゲイルヴェスパー.png",
-      "discordId": "",
-      "visible": true
-    },
-    {
       "id": "赤青覇道",
       "name": "赤青覇道",
       "img": "/data/archives/dmpp35_nd/decks/20260407011102_赤青覇道.png",
@@ -37,16 +37,9 @@
       "visible": true
     },
     {
-      "id": "青白チェンジザ",
-      "name": "青白チェンジザ",
-      "img": "/data/archives/dmpp35_nd/decks/20260407011107_青白チェンジザ.png",
-      "discordId": "1487440511340904548",
-      "visible": true
-    },
-    {
-      "id": "獰猛シルキード",
-      "name": "獰猛シルキード",
-      "img": "/data/archives/dmpp35_nd/decks/20260407011144_獰猛シルキード.png",
+      "id": "ゲイルヴェスパー",
+      "name": "ゲイルヴェスパー",
+      "img": "/data/archives/dmpp35_nd/decks/20260407011020_ゲイルヴェスパー.png",
       "discordId": "",
       "visible": true
     },
@@ -54,6 +47,13 @@
       "id": "アナカラーQQQX",
       "name": "アナカラーQQQX",
       "img": "/data/archives/dmpp35_nd/decks/20260407011231_アナカラーQQQX.png",
+      "discordId": "",
+      "visible": true
+    },
+    {
+      "id": "獰猛シルキード",
+      "name": "獰猛シルキード",
+      "img": "/data/archives/dmpp35_nd/decks/20260407011144_獰猛シルキード.png",
       "discordId": "",
       "visible": true
     },
